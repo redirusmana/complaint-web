@@ -1,0 +1,187 @@
+.loading-cube-folding {
+  width: $loading-size;
+  height: $loading-size;
+  display: inline-block;
+  @include transform(rotate(45deg));
+  font-size: 0;
+  span{
+    position: relative;
+    width: $loading-size/2;
+    height: $loading-size/2;
+    @include transform(scale(1.1));
+    display: inline-block;
+    &::before{
+      content: '';
+      background-color: $primary;
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+      width: $loading-size/2;
+      height: $loading-size/2;
+      -moz-transform-origin: 100% 100%;
+      -ms-transform-origin: 100% 100%;
+      -webkit-transform-origin: 100% 100%;
+      transform-origin: 100% 100%;
+      @include animation(loading-folding 2.50s infinite linear both);
+    }
+  }
+  .leaf2{
+    @include transform(rotateZ(90deg) scale(1.1));
+    &::before{
+      @include animation-delay(.30s);
+      background-color: darken($primary, 5%);
+    }
+  }
+  .leaf3{
+    @include transform(rotateZ(270deg) scale(1.1) );
+    &::before{
+      @include animation-delay(.90s);
+      background-color: darken($primary, 5%);
+    }
+  }
+  .leaf4{
+    @include transform(rotateZ(180deg) scale(1.1));
+    &::before{
+      @include animation-delay(.60s);
+      background-color: darken($primary, 10%);
+    }
+  }
+}
+
+//with loading text and shadow
+.loading-cube-wrapper{  
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -$loading-size;
+  margin-left: -$loading-size;
+  width: $loading-size*2;
+  height: $loading-size*2;
+  text-align: center;
+  //shadow
+  &:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -20px;
+    margin: auto;
+    width: $loading-size*1.8;
+    height: 6px;
+    background-color: rgba(black,.1);
+    @include filter(blur(2px));
+    @include border-radius(100%);
+    z-index: 1;
+    @include animation(loading-shadow 0.5s ease infinite alternate);
+  }
+  .loading{
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    display: block;
+    color: $primary;
+    position: relative;
+    top: $loading-size/2;
+    z-index: 2;
+    @include animation(loading-text 0.5s ease infinite alternate);
+    }
+}
+@include keyframes(loading-text) {
+  100%{
+    top: ($loading-size/2) + 10;
+  }
+}
+@include keyframes(loading-shadow) {
+  100%{
+    bottom: -18px; 
+    width: $loading-size*2;
+  }
+}
+
+@include keyframes(line-scale-pulse-out-rapid) {
+  0% {
+    transform: scaley(1.0);
+  }
+  80% {
+    transform: scaley(0.3);
+  }
+  90% {
+    transform: scaley(1.0);
+  }
+}
+
+.card-loaders {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  text-align: center;
+
+  .loader-animation {
+    margin-top: 30px;
+    height: 80px;
+  }
+
+  .loader-text {
+    display: block;
+    height: 40px;
+    color: $primary
+  }
+}
+
+.line-scale-pulse-out-rapid {
+  text-align: center;
+  height: 100%;
+
+  .loaders>& {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  > div {
+    width: .25rem;
+    height: 3rem;
+    margin: 0 .25rem;  
+    animation-fill-mode: both;
+    background-color: $primary;
+
+    display: inline-block;
+    vertical-align: middle;
+    animation: line-scale-pulse-out-rapid 0.9s -0.5s infinite cubic-bezier(.11,.49,.38,.78);
+
+    &:nth-child(2), &:nth-child(4) {
+      animation-delay: -0.25s !important;
+    }
+
+    &:nth-child(1), &:nth-child(5) {
+      animation-delay: 0s !important;
+    }
+
+    // color
+    &:nth-child(1) {
+      // background-color: #dae9f4; 
+      background-color: $primary
+    }
+
+    &:nth-child(2) {
+      // background-color: #8bcbc8; 
+      background-color: $primary
+    }
+
+    &:nth-child(3) {
+      // background-color: #ecc7c0; 
+      background-color: $primary
+    }
+
+    &:nth-child(4) {
+      // background-color: #fdae84; 
+      background-color: $primary
+    }
+
+    &:nth-child(5) {
+      // background-color: #3c2e3d; 
+      background-color: $primary
+    }
+  }
+}

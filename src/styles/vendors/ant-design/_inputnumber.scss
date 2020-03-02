@@ -1,0 +1,40 @@
+.app {
+  .ant-input-number {
+    height: #{$input-height - .1};
+    line-height: #{$input-height - .1};
+    border-color: $input-border-color;
+    border-radius: $input-border-radius;
+
+    &:focus,
+    &.ant-input-number-focused {
+      border-color: $primary;
+      box-shadow: $input-focus-box-shadow;
+    }
+
+    &.is-invalid {
+      border-color: $form-feedback-invalid-color;
+      &:focus {
+        border-color: $form-feedback-invalid-color;
+        box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-invalid-color, .25);
+      }
+    }
+
+    &.is-invalid.ant-input-number-focused {
+      border-color: $form-feedback-invalid-color;
+      box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-invalid-color, .25);
+    }
+
+    &.is-valid {
+      border-color: $form-feedback-valid-color;
+      &:focus {
+        border-color: $form-feedback-valid-color;
+        box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-valid-color, .25);
+      }
+    }
+
+    &.is-valid.ant-input-number-focused {
+      border-color: $form-feedback-valid-color;
+      box-shadow: 0 0 0 $input-focus-width rgba($form-feedback-valid-color, .25);
+    }
+  }
+}

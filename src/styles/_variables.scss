@@ -1,0 +1,453 @@
+// Import url
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600|Roboto|PT+Serif');
+
+// Options
+$enable-rounded: true;
+$enable-shadows: false;
+$enable-gradients: false;
+$enable-transitions: true;
+$enable-hover-media-query: false;
+$enable-grid-classes: true;
+$enable-print-styles: true;
+
+//Fonts
+$font-family-base: 'Poppins',
+-apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+"Helvetica Neue",
+Arial,
+sans-serif;
+$font-family-monospace: Monaco,
+Consolas,
+"Liberation Mono",
+"Courier New",
+monospace;
+$font-family-serif: 'PT Serif';
+
+$font-size-base: 14px; //.9375rem;
+$font-size-lg: 1rem; // 1.125rem;
+$font-size-sm: .75rem; // .875rem;
+
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 600;
+
+$font-weight-base: $font-weight-normal;
+
+$line-height-base: 1.4;
+
+$h1-font-size: 2rem; //32px
+$h2-font-size: 1.75rem; //28px
+$h3-font-size: 1.5rem; //24px
+$h4-font-size: 1.125rem; //18px
+$h5-font-size: 1rem; //16px
+$h6-font-size: .875rem; //14px
+
+$small-font-size: 87.5%;
+
+// Colors
+
+// Custom config
+$color-master: #47525D;
+
+// Lighter Grey colors
+$color-master-light: #DBE4EB;
+$color-master-lighter: #f2f9ff;
+$color-master-lightest: #f6f9fa;
+
+// Darker Grey colors
+$color-master-dark: #929FAA;
+$color-master-darker:mix($color-master-dark, #000, 27%);
+$color-master-darkest:mix($color-master-dark, #000, 18%);
+
+$mix-percentage-dark: 81%;
+$mix-percentage-darker: 60%;
+$mix-percentage-darkest: 20%;
+$mix-percentage-light: 80%;
+$mix-percentage-lighter: 60%;
+$mix-percentage-lightest: 20%;
+
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #868e96;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+$blue: #111d5e; //#2D95F3; // #007be8; // #467fcf;
+$azure: #6990eb; // #45aaf2;
+$indigo: #6d5cae; // #6574cd;
+$purple: #a55eea;
+$pink: #f66d9b;
+$red: #fe346e; // #ea2c54; // #cd201f;
+$orange: #fd9644;
+$yellow: mix(#ffb822, $white, $mix-percentage-lighter); // #ffb822; //#ffb74c;
+$lime: #07c25f;
+$green: #04A777; // #29BF12; // #7aed9f; // #00e8ba; // #5eba00;
+$teal: #2bcbba;
+$cyan: #17a2b8;
+$dark-gray: #47525e;
+
+$text-muted: $gray-600;
+$text-muted-dark: #000;
+
+$white: #fff;
+$black: #000;
+
+$primary: $blue;
+$secondary: $dark-gray; //$gray-600;
+$success: $green;
+$info: $azure; // $azure;
+$warning: $yellow;
+$danger: $red;
+$light: $gray-100;
+$dark: $gray-800;
+
+$colors: ("blue": $blue,
+	"azure": $azure,
+	"indigo": $indigo,
+	"purple": $purple,
+	"pink": $pink,
+	"red": $red,
+	"orange": $orange,
+	"yellow": $yellow,
+	"lime": $lime,
+	"green": $green,
+	"teal": $teal,
+	"cyan": $cyan,
+	"white": $white,
+	"gray": $gray-600,
+	"gray-dark": $gray-800);
+
+$theme-colors: ("primary": $primary,
+	"secondary": $secondary,
+	"success": $success,
+	"info": $info,
+	"warning": $warning,
+	"danger": $danger,
+	"light": $light,
+	"dark": $dark);
+
+$social-colors: ("facebook": #3b5998,
+	"twitter": #1da1f2,
+	"google": #dc4e41,
+	"youtube": #f00,
+	"vimeo": #1ab7ea,
+	"dribbble": #ea4c89,
+	"github": #181717,
+	"instagram": #e4405f,
+	"pinterest": #bd081c,
+	"vk": #6383a8,
+	"rss": #ffa500,
+	"flickr": #0063dc,
+	"bitbucket": #0052cc,
+);
+
+
+$custom-control-indicator-checked-bg: $primary;
+
+$body-bg: $white; // #f5f7fb;
+$body-color: #575962; //$gray-700;
+
+// Code
+$code-font-size: 85%;
+$code-color: inherit;
+
+$kbd-color: #fff;
+$kbd-bg: $gray-800;
+
+$pre-color: $gray-900;
+
+$headings-margin-bottom: .66em;
+$headings-font-family: 'Roboto',
+-apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+"Helvetica Neue",
+Arial,
+sans-serif;
+$headings-font-weight: 600;
+$headings-line-height: 1.1;
+$headings-color: #57606f; // $color-master;
+
+$display1-size: 4.5rem;
+$display2-size: 4rem;
+$display3-size: 3.5rem;
+$display4-size: 3rem;
+
+// Borders
+$border-width: 1px;
+// $border-color: #dee3eb;
+$border-color: #ebedf2; // rgba(0, 40, 100, .12);
+$border-color-dark: darken($border-color, 10%); // rgba(0, 40, 100, .24);
+
+// Yiq
+$yiq-contrasted-threshold: 190;
+$yiq-text-dark: $body-color;
+$yiq-text-light: $white;
+
+$input-line-height: (24/15);
+$btn-line-height: 1.25rem;
+
+$input-line-height-sm: (16/14);
+$btn-line-height-sm: 1rem;
+
+$input-line-height-lg: (26/18);
+$btn-line-height-lg: 1.5rem;
+
+// Buttons
+// $btn-transition:
+// 	color 0.15s ease-in-out,
+// 	background-color 0.15s ease-in-out,
+// 	background 0.15s ease-in-out,
+// 	border-color 0.15s ease-in-out,
+// 	box-shadow 0.15s ease-in-out;
+$btn-padding-y: .35rem;
+$btn-padding-x: 0.75rem;
+// $btn-line-height: $line-height-base;
+$btn-font-size: $font-size-base;
+$btn-font-weight: $font-weight-base;
+
+
+$input-btn-focus-width: 2px;
+
+$input-disabled-bg: $gray-100;
+
+$custom-select-border-color: $border-color;
+$input-focus-border-color: mix($primary, $white, $mix-percentage-dark);
+$custom-select-focus-border-color: mix($primary, $white, $mix-percentage-dark);
+
+// Inputs
+$input-bg: #fff;
+$input-height: 2.375rem;
+
+$input-color: $gray-700;
+$input-border-color: $border-color;
+$input-border-width: 1px;
+$input-box-shadow: inset 0 1px 1px rgba(#000, .075);
+
+$input-group-addon-border-color: $input-border-color;
+$input-group-addon-bg: #fbfbfc;
+
+$input-placeholder-color: $gray-500;
+
+// Grid
+$grid-columns: 24;
+$grid-gutter-width: 1rem; //1.25rem;//1.5rem;
+
+$grid-breakpoints: (xs: 0,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1280px,
+	xxl: 1400px);
+
+$container-max-widths: (sm: 540px,
+	md: 720px,
+	lg: 960px,
+	xl: 1200px,
+	xxl: 1366px);
+
+// Header
+$header-bg: #0667d0;
+$header-color: #fff;
+$header-height: 4.5rem;
+
+// Cards
+$card-border-color: $border-color;
+$card-spacer-y: 1rem; // 1.5rem;
+$card-spacer-x: 1rem; // 1.5rem;
+$card-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$card-margin-bottom: $grid-gutter-width;
+$card-cap-bg: none;
+$card-header-spacer-y: 0.5rem;
+$card-footer-spacer-y: 1rem;
+
+
+// $card-spacer-y:                     .75rem !default;
+// $card-spacer-x:                     1.25rem !default;
+// $card-border-width:                 $border-width !default;
+// $card-border-radius:                $border-radius !default;
+// $card-border-color:                 rgba($black, .125) !default;
+// $card-inner-border-radius:          calc(#{$card-border-radius} - #{$card-border-width}) !default;
+// $card-cap-bg:                       rgba($black, .03) !default;
+// $card-bg:                           $white !default;
+
+// $card-img-overlay-padding:          1.25rem !default;
+
+// $card-group-margin:                 ($grid-gutter-width / 2) !default;
+// $card-deck-margin:                  $card-group-margin !default;
+
+// $card-columns-count:                3 !default;
+// $card-columns-gap:                  1.25rem !default;
+// $card-columns-margin:               $card-spacer-y !default;
+
+// Alerts
+$alert-link-font-weight: 600;
+
+// Spacing
+$spacer: 1rem;
+$spacers: (0: 0,
+	1: $spacer * .25,
+	2: $spacer * .5,
+	3: $spacer * .75,
+	4: $spacer * 1,
+	5: $spacer * 1.5,
+	6: $spacer * 2,
+	7: $spacer * 3,
+	8: $spacer * 4,
+	9: $spacer * 6);
+
+$sizes: (0: 0,
+	1: $spacer * .25,
+	2: $spacer * .5,
+	3: $spacer * .75,
+	4: $spacer * 1,
+	5: $spacer * 1.5,
+	6: $spacer * 2,
+	7: $spacer * 3,
+	8: $spacer * 4,
+	9: $spacer * 6,
+	25: 25%,
+	50: 50%,
+	75: 75%,
+	100: 100%,
+	auto: auto);
+
+// Footer
+$footer-bg: #fff;
+
+// Dropdowns
+$dropdown-border-color: $border-color;
+$dropdown-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+$dropdown-arrow-top-before: -10.5px;
+$dropdown-arrow-top-after: -9px;
+$dropdown-arrow-left: 0.5rem;
+$dropdown-arrow-border: 10px solid;
+$dropdown-arrow-border-radius: 4px;
+$dropdown-link-disabled-color: darken($color-master-light, 8%);
+$dropdown-item-header-padding-x: 1rem;
+$dropdown-header-color: $color-master-dark;
+
+// Z-index
+$zindex-overlay: 900;
+$zindex-dropdown: 1000;
+$zindex-sticky: 1020;
+$zindex-fixed: 1030;
+$zindex-modal-backdrop: 1040;
+$zindex-modal: 1050;
+$zindex-popover: 1060;
+$zindex-tooltip: 1070;
+
+// Components
+$border-radius: 4px;
+$border-radius-lg: 4px;
+$border-radius-sm: 4px;
+
+// Tables
+$table-accent-bg: rgba($primary, .02);
+$table-hover-bg: rgba($primary, .1);
+$table-border-color: $border-color;
+$table-padding-y: .75rem;
+$table-padding-x: .35rem;
+$table-cell-padding-sm: .35rem;
+$table-cell-padding-sm-y: .45rem;
+$table-cell-padding-sm-x: .35rem;
+
+$custom-select-padding-y: .5rem;
+$custom-select-padding-x: .75rem;
+
+$custom-select-indicator-color: #999;
+$custom-select-indicator: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 5'%3E%3Cpath fill='#{$custom-select-indicator-color}' d='M0 0L10 0L5 5L0 0'/%3E%3C/svg%3E");
+
+// Aside
+$aside-width: 22rem;
+
+// List group
+$list-group-border-color: $border-color;
+$list-group-active-color: $primary;
+$list-group-active-bg: mix($primary, #fff, 4%);
+$list-group-active-border-color: $list-group-border-color;
+
+// Popovers
+$popover-body-padding-y: .75rem;
+$popover-body-padding-x: 1rem;
+$popover-border-color: #dee3eb;
+$popover-body-color: $text-muted-dark;
+$popover-arrow-width: .5rem;
+$popover-arrow-height: .5rem;
+
+// Badges
+$badge-font-weight: 500;
+
+// Hr
+$hr-border-color: $border-color;
+
+// Thumbnails
+$thumbnail-bg: #fff;
+
+// Pagination
+$pagination-color: $body-color;
+$pagination-disabled-color: $gray-400;
+
+// Navs
+$nav-tabs-link-active-bg: transparent;
+
+// Font icon
+$icon-size: ('lineawesome': 1.1rem,
+	'fontawesome': 1.2rem,
+	'metronic': 1.1rem);
+
+$icon-content: (close: '\f191',
+	down: '\f110',
+	up: '\f113',
+	left: '\f111',
+	right: '\f112',
+	plus: '\f2c2',
+	minus: '\f28e'
+);
+
+$loading-size: 50px;
+
+// Organization
+$org-card-width: 125px;
+$org-card-height: 140px;
+$org-card-line-color: $gray-200;
+$org-card-line-width: 2px;
+$org-card-line-offset-minus: -10px;
+$org-card-line-offset: 10px;
+
+$breadcrumb-divider: quote($string: ">");
+
+$file-icons: (xs: 1rem,
+	sm: 1.5rem,
+	md: 2rem,
+	lg: 2.5rem,
+	xl: 3rem);
+
+$link-hover-decoration: none;
+
+/* Pipeline */
+$projectable-navbar-height-desktop: 115px;
+$projectable-navbar-height-tablet: 60px;
+$projectable-modal-padding-x: .5rem;
+$projectable-modal-padding-y: .75rem;
+
+/* Kanban */
+$kanban-board-padding-y: .5rem;
+$kanban-board-padding-x: .5rem;
+$kanban-column-width: 300px;
+$kanban-column-bg: #e8ecf5;
+$kanban-column-padding-y: .5rem;
+$kanban-column-padding-x: .5rem;
+$kanban-column-margin-y: 0;
+$kanban-column-margin-x: .5rem;
+$kanban-cell-margin: .375rem 0;
+$kanban-cell-padding: .5rem;
+
+$kanban-extend-main-padding-top: 115px;

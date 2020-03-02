@@ -1,0 +1,176 @@
+
+.ant-alert {
+
+  .app & {
+    font-family: $headings-font-family;
+    font-size: $font-size-base;
+    line-height: 1.5;
+    color: $color-master;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    padding: 8px 15px 8px 37px;
+    border-radius: 4px;
+  }
+
+  .app &-no-icon {
+    padding: 8px 15px;
+  }
+
+  .app &-icon {
+    top: 12.5px;
+    left: 16px;
+    position: absolute;
+  }
+
+  .app &-description {
+    font-size: 14px;
+    line-height: 22px;
+    display: none;
+  }
+
+  .app &-success {
+    border: 1px solid #b7eb8f;
+    background-color: #f6ffed;
+  }
+
+  .app &-success &-icon {
+    color: #52c41a;
+  }
+
+  .app &-info {
+    border: 1px solid #91d5ff;
+    background-color: #e6f7ff;
+  }
+
+  .app &-info &-icon {
+    color: #1890ff;
+  }
+
+  .app &-warning {
+    border: 1px solid #ffe58f;
+    background-color: #fffbe6;
+  }
+
+  .app &-warning &-icon {
+    color: #faad14;
+  }
+  
+  .app &-error {
+    border: 1px solid $danger; //#ffa39e;
+    background-color: #fff1f0;
+  }
+
+  .app &-error &-icon {
+    color: $danger// #f5222d;
+  }
+
+  .app &-close-icon {
+    font-size: $font-size-base;
+    position: absolute;
+    right: 16px;
+    top: 8px;
+    line-height: 22px;
+    overflow: hidden;
+    cursor: pointer;
+
+    .anticon-cross {
+      color: $color-master;
+      transition: color .3s;
+
+      &:hover {
+        color: $color-master-dark;
+      }
+    }
+  }
+
+  .app &-close-text {
+    position: absolute;
+    right: 16px;
+  }
+
+  .app &-with-description {
+    padding: 15px 15px 15px 64px;
+    position: relative;
+    border-radius: 4px;
+    color: rgba(0, 0, 0, 0.65);
+    line-height: 1.5;
+
+    &.ant-alert-no-icon {
+      padding: 15px;
+    }
+
+    .ant-alert-icon {
+      position: absolute;
+      top: 16px;
+      left: 24px;
+      font-size: 24px;
+    }
+
+    .ant-alert-close-icon {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .ant-alert-message {
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.85);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .ant-alert-description {
+      display: block;
+    }
+  }
+
+  .app &.ant-alert-close {
+    height: 0 !important;
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+    transform-origin: 50% 0;
+  }
+  
+  .app &-slide-up-leave {
+    animation: antAlertSlideUpOut 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+    animation-fill-mode: both;
+  }
+  
+  .app &-banner {
+    border-radius: 0;
+    border: 0;
+    margin-bottom: 0;
+  }
+}
+
+@keyframes antAlertSlideUpIn {
+  0% {
+    opacity: 0;
+    transform-origin: 0% 0%;
+    transform: scaleY(0);
+  }
+  100% {
+    opacity: 1;
+    transform-origin: 0% 0%;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes antAlertSlideUpOut {
+  0% {
+    opacity: 1;
+    transform-origin: 0% 0%;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    transform-origin: 0% 0%;
+    transform: scaleY(0);
+  }
+}

@@ -1,0 +1,222 @@
+.article {
+
+  header {
+    text-align: center;
+
+    time {
+      display: block;
+      color: $color-master-dark;
+      font-weight: $font-weight-bold;
+      margin-bottom: .5rem;
+      font-size: 18px;
+      text-align: left;
+    }
+
+    h2 {
+      font-size: 35px;
+      text-align: left;
+    }
+
+  }
+
+  &-body {
+    font-family: $font-family-serif;
+    font-size: 18px;
+    margin: 1rem 0;
+    // line-height: 33px;
+    // text-align: justify;
+
+    figure {
+      
+      img {
+        @extend .img-fluid;
+      }
+    }
+
+    &>p,
+    li {
+      margin: .5rem 0;
+    }
+    &>ul,
+    &>ol {
+      margin: 16px 0;
+      padding: 0;
+    }
+  }
+}
+
+.event {
+
+  &-title {
+    margin-bottom: 1rem;
+    p {
+      font-size: 1.5rem;
+      font-family: $headings-font-family;
+      line-height: $headings-line-height;
+    }
+  }
+
+  &-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    border: 1px solid $border-color;
+    border-radius: $card-border-radius;
+  }
+
+  // &-body {}
+
+  &-thumbnail {
+    flex: 1;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    // height: 200px;
+    border-top-left-radius: $card-border-radius;
+    border-bottom-left-radius: $card-border-radius;
+    border-right: 0;
+  }
+
+  &-meta {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 300px;
+    height: auto;
+    margin-left: auto;
+    border-top: 0;
+    border-top-right-radius: $card-border-radius;
+    border-bottom-right-radius: $card-border-radius;
+    justify-content: space-evenly;
+    align-items: stretch;
+    padding: .5rem 0;
+    
+    &-detail {
+      flex: 1 1 100%;
+      padding: .5rem .75rem;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: center;
+    }
+  }
+
+  &-author {
+    display: inline-flex;
+    align-items: center;
+
+    &-meta {
+      margin-left: .25rem;
+    }
+  }
+
+  &-subheader {
+    margin-bottom: 0.2rem;
+    text-transform: uppercase;
+    font-size: $font-size-sm;
+    color: $primary;
+    font-weight: $font-weight-bold;
+  }
+
+  &-date-icon {
+    left: 0;
+    top: 4px;
+    padding-top: .75rem;
+    margin-bottom: 0;
+    width: inherit;
+    background:#ededef;
+    text-align:center;
+    font-size: 1.25rem;
+    line-height: $line-height-base;
+    font-weight: $font-weight-bold;
+    border-top-left-radius: $card-border-radius;
+    border-top-right-radius: $card-border-radius;
+    position: absolute;
+
+    &:before,
+    &:after {
+      content:'';
+      float:left;
+      position:absolute;
+      top:5px;	
+      width:8px;
+      height:8px;
+      background:#111;
+      z-index:1;
+      border-radius:10px;
+      box-shadow:0 1px 1px #fff;
+    }
+
+    &:before {
+      left:11px;
+    }
+
+    &:after {
+      right: 11px;
+    }
+
+    .month {
+      display: block;
+      font-size: 12px;
+      margin-bottom: .25rem;
+      font-weight: $font-weight-bold;
+    }
+
+    .day {
+      font-size: $font-size-sm;
+      font-weight: $font-weight-normal;
+      line-height: 1.8;
+      display:block;
+      color: #fff;
+      border-bottom-right-radius: $card-border-radius;
+      border-bottom-left-radius: $card-border-radius;
+      text-shadow: $primary 0 -1px 0;	
+      background :$primary;
+      border-top:1px solid $primary;
+
+      &.start {
+        text-shadow: $info 0 -1px 0;	
+        background :$info;
+        border-top:1px solid $info;
+      }
+
+      &.end {
+        text-shadow: $success 0 -1px 0;	
+        background :$success;
+        border-top:1px solid $success;
+      }
+
+      &:before,
+      &:after {
+        content:'';
+        float:left;
+        position:absolute;
+        top:-5px;	
+        width:4px;
+        height:14px;
+        background:#dadada;
+        background:-webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#aaa)); 
+        background:-moz-linear-gradient(top,  #f1f1f1,  #aaa); 
+        z-index:2;
+        border-radius:2px;
+      }
+
+      &:before {
+        left: 13px;
+      } 
+
+      &:after {
+        right: 13px;
+      }
+    }
+  }
+}
+
+.article-preview {
+  font-size: inherit;
+  
+  p {
+    margin-bottom: .2rem;
+  }
+}

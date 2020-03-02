@@ -1,0 +1,314 @@
+$rteToolbarLoops: 20;
+
+.app {
+  // toolbar loop to determine z-index
+  // the higher position, the lower z-index value
+  // Special case for product knowledge inside .card-body
+  .card-body {
+
+    @for $i from 0 to $rteToolbarLoops {
+      &>.rte-wrapper:nth-child(#{$i + 1}) {
+        &>.rte-toolbar {
+          z-index: #{915 - $i};
+        }
+      }
+    }
+  }
+
+  .rte {
+  
+    &-wrapper {
+      position: relative;
+    }
+  
+    &-toolbar {
+      border: $border-width solid $border-color;
+      background-color: $border-color;
+      padding-left: 0;
+      padding-right: 0;
+      z-index: 900;
+      position: sticky;
+      top: 130px;
+      margin-bottom: 0;
+
+      .la {
+        font-size: #{1.25 * $btn-font-size};
+      }
+
+      .btn {
+        &.active {
+          background-color: rgba($primary, .15);
+          border-color: rgba($primary, .5);
+        }
+      }
+
+      .dropdown {
+        .active {
+          background-color: rgba($primary, .15);
+          border-color: rgba($primary, .5);
+        }
+
+        .dropdown-item:focus,
+        .dropdown-item:active {
+          background-color: rgba($primary, .15);
+          border-color: rgba($primary, .5);
+        }
+      }
+    }
+
+    &-editor {
+      font-size: 18px;
+      line-height: 30px;
+      font-family: $font-family-serif;
+      padding: $card-spacer-y $card-spacer-y;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      &.rte-editor-sm {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .rdw-option-wrapper {
+    padding: $btn-padding-y #{0.5 * $btn-padding-x};
+    font-size: $btn-font-size;
+    line-height: $btn-line-height;
+    height: #{1.5 * $btn-line-height};
+    font-weight: $btn-font-weight;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    -webkit-font-smoothing:antialiased;
+    -webkit-text-size-adjust:100%;
+    -ms-text-size-adjust:100%;
+    -webkit-font-feature-settings: "kern" 1;
+    -moz-font-feature-settings: "kern" 1;
+    @include transition($btn-transition);
+    color: $body-color;
+    border-radius: $border-radius;
+
+    @include hover-focus {
+      @include box-shadow($btn-active-box-shadow);
+    }
+  }
+
+  .rdw-option-active {
+    background-color: rgba($primary, .1);
+    color: $white;
+  }
+
+  .rdw-dropdown-wrapper {
+    font-size: $font-size-base;
+    border-radius: $border-radius;
+  }
+
+  .rdw-dropdown-selectedtext > div {
+    transition: transform .2s ease;
+    transform: rotate(0);
+
+    &.rdw-dropdown-carettoclose {
+      transform: rotate(180deg);
+    }
+  }
+
+  .rdw-dropdown-carettoopen,
+  .rdw-dropdown-carettoclose {
+    top: 42%;
+    right: 9%;
+    border-top: 4px solid $body-color;
+    border-bottom: none;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+  }
+
+  .rdw-dropdownoption-active {
+    @extend .dropdown-item.active;
+  }
+
+  .public-DraftEditorPlaceholder-root {
+    color: $input-placeholder-color;
+  }
+
+  .public-DraftEditorPlaceholder-hasFocus {
+    color: $white;
+  }
+
+  .public-DraftStyleDefault-block {
+    margin: .25rem 0;
+  }
+  
+  .rdw-link-modal {
+    
+    height: auto;
+    
+    .rdw-link-modal-label {
+      @extend .form-label;
+      font-size: $font-size-sm;
+    }
+
+    .rdw-link-modal-input {
+      @extend .form-control;
+      height: 2rem;
+    }
+
+    .rdw-link-modal-target-option {
+      @extend .custom-control;
+      @extend .custom-checkbox;
+      font-size: $font-size-sm;
+      
+      input[type="checkbox"] {
+        @extend .custom-control-input;
+      }
+
+      & > span {
+        @extend .custom-control-label;
+        font-family: $font-family-base;
+      }
+    }
+  }
+
+  .rdw-embedded-modal-header, 
+  .rdw-image-modal-header {
+    @extend .form-label;
+    font-size: $font-size-sm;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-top: 0;
+  }
+
+  .rdw-embedded-modal-header-option {
+    width: 100%;
+  }
+
+  .rdw-embedded-modal-link-input,
+  .rdw-image-modal-alt-input,
+  .rdw-image-modal-url-input {
+    @extend .form-control;
+    height: 2rem;
+  }
+
+  .rdw-embedded-modal-size {
+    width: 100%;
+    position: relative;
+    margin-top: .15rem;
+    margin-bottom: .75rem;
+    span {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+  }
+
+  .rdw-embedded-modal-size-input,
+  .rdw-image-modal-size-input {
+    @extend .form-control;
+    @extend .form-control-sm;
+    height: 1.5rem;
+  }
+
+  .rdw-link-modal-btn,
+  .rdw-image-modal-btn,
+  .rdw-embedded-modal-btn {
+    @extend .btn;
+    @extend .btn-sm;
+    height: auto;
+
+    &:first-child {
+      @extend .btn-primary;
+    }
+
+    &:last-child {
+      @extend .btn-danger;
+    }
+  }
+
+  .rdw-image-modal-btn-section,
+  .rdw-link-modal-buttonsection {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+
+  .rdw-embedded-modal,
+  .rdw-image-modal,
+  .rdw-link-modal {
+    @extend .dropdown-menu;
+    @extend .show;
+    @extend .dropdown-menu-arrow;
+    top: 35px;
+    padding: $card-spacer-y $card-spacer-y;
+  }
+
+  .rdw-dropdown-optionwrapper {
+    @extend .dropdown-menu;
+    @extend .dropdown-menu.show;
+    position: relative;
+    top: unset;
+    width: auto;
+    min-width: unset;
+  }
+
+  .rdw-dropdownoption-default {
+    @extend .dropdown-item;
+    padding: 0 5px;
+
+    @include hover-focus {
+      @extend .dropdown-item.active;
+      text-decoration: none;
+    }
+  }
+  
+  .rdw-text-align-dropdownOption {
+    display: flex;
+    @include hover-focus {
+      background-color: $color-master-light;
+    }
+
+    &.rdw-dropdownoption-active {      
+      background-color: $color-master-light;
+    }
+  }
+
+  .rdw-image-modal-upload-option-label {
+    overflow: hidden;
+  }
+  .rdw-image-alignment-options-popup {
+    top: 0;
+    left: 45%;
+    display: flex;
+    flex-direction: row;
+
+    .rdw-option-wrapper.rdw-image-alignment-option {
+      flex: 1;
+    }
+  }
+  .rdw-image-imagewrapper {
+    &>img {
+      @extend .img-fluid;
+    }
+  }
+  
+  .rdw-fontfamily-dropdown {
+    width: 150px;
+  }
+
+  .rdw-justify-aligned-block > div {
+    text-align: justify;
+  }
+
+  .rdw-right-aligned-block > div {
+    text-align: right;
+  }
+
+  .rdw-center-aligned-block > div {
+    text-align: center;
+  }
+
+  .rdw-left-aligned-block > div {
+    text-align: left;
+  }
+
+}

@@ -1,0 +1,365 @@
+a[href="http://www.amcharts.com"] {
+  display: none !important;
+}
+
+.chart-container {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+
+  .card-chart & {
+    min-height: 250px;
+  }
+}
+
+.card-chart {
+  padding-right: $card-header-spacer-y;
+  padding-left: $card-header-spacer-y;
+  padding-bottom: $card-header-spacer-y;
+
+  @include desktop-and-tablet {
+    &-table {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  @include mobile {
+    &-table {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+    }
+  }
+
+  .amcharts-main-div {
+    margin-top: -12px;
+  }
+
+  + .card-footer {
+    border-top: 0;
+    padding-top: 0;
+    text-align: center;
+  }
+} 
+
+.chart {
+
+  @include desktop-and-tablet {
+    &-viewer {
+      flex: 3 auto;
+      max-width: 60%;
+    }
+
+    &-table {
+      flex: 1 auto;
+      max-width: 40%;
+    }
+  }
+
+  @include mobile {
+    &-viewer,
+    &-table {
+      flex: 1;
+      width: 100%;
+    }
+
+    &-table {
+      padding-left: $card-header-spacer-y;
+      padding-right: $card-header-spacer-y;
+    }
+  }
+}
+
+.chart-table {
+
+  .card-chart & {
+    padding-right: $card-header-spacer-y;
+  }
+
+  &-mini {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    flex: 1 1 auto;
+  }
+  
+  h6 {
+    font-size: px2rem(14px);
+    font-weight: $font-weight-bold;
+    margin-top: px2rem(4px);
+    margin-bottom: px2rem(14px);
+  }
+
+  &-header.chart-table-item {
+    font-weight: $font-weight-bold;
+    color: $gray-500;
+  }
+
+  &-header.chart-table-item.chart-table-header-kurs {
+    font-weight: $font-weight-normal;
+    color: $gray-700;
+  }
+
+  &-item {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.07rem dashed $border-color;
+    color: $body-color;
+    padding: 0.25rem 0;
+
+    &:not(.chart-table-header) {
+      @include hover {
+        background-color: $table-hover-bg;
+        cursor: pointer;
+      }
+    }
+
+
+    .card-chart & {
+      padding: 0.25rem .5rem;
+    }
+
+    .no-border & {
+      border-bottom: 0;
+    }
+    
+    &>span {
+      flex-basis: 0;
+      flex-grow: 1;
+      font-size: $font-size-base;
+      line-height: 1.2;
+      margin-top: 3px;
+      margin-bottom: 3px;
+      padding: 0 px2rem(6px);
+      width: auto;
+      text-align: left;
+      word-wrap: break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0px;
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
+
+  &-item &-desc {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    flex-grow: 2;
+  }
+
+  &-item &-sr-tenor {
+    text-align: center;
+    min-width: 17rem;
+  }
+
+  &-item &-ry-table {
+    text-align: center;
+    min-width: 9.75rem;
+  }
+
+  &-item &-ry-valuta-header {
+    text-align: center;
+    min-width: 9.4rem;
+  }
+
+  &-item &-ry-valuta-content {
+    text-align: right;
+    min-width: 3rem;
+  }
+
+  &-item &-ry-valuta-institution {
+    text-align: right;
+    min-width: 7rem;
+  }
+  
+  &-item &-amount {
+    text-align: right;
+    min-width: 5rem;
+  }
+
+  &-item &-percent {
+    text-align: right;
+    min-width: 2.7rem;
+  }
+
+  &-item &-color {
+    max-width: $font-size-base;
+    height: $font-size-base;
+    text-align: center;
+    font-size: $font-size-base;
+    padding: 0;
+  }
+
+  &-footer {
+    text-align: right;
+    margin-top: 8px;
+    margin-bottom: 0;
+    
+    .btn-link {
+      padding: 0;
+      font-size: px2rem(14px);
+      text-decoration: none;
+    }
+  }
+  
+  &-bold {
+    font-weight: 500 !important;
+  }
+
+  &-bigger {
+    font-size: $font-size-lg;
+
+    &>span {
+      font-size: $font-size-lg;
+    }
+  }
+}
+
+// Organization chart
+.chart-org {
+  display: block;
+  position: relative;
+  width: auto;
+  margin: 0 auto;
+}
+
+.org {
+
+  &-level {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    position: relative;
+    // width: 100%;
+    margin-left: -5px;
+    margin-right: -5px;
+
+    @include desktop {
+      .org-item-sub + & {
+        margin-top: 0.5 * $org-card-width;
+      }
+    }
+    
+  }
+
+  &-first {
+    display: block;
+  }
+
+  &-item {
+    display: block;
+    position: relative;
+    padding-left: 5px;
+    padding-right: 5px;
+    flex: 1 1 20%;
+
+    @include desktop {
+      &.org-item-sub {
+        position: absolute;
+        display: block;
+        top: -50%;
+        left: calc(25% - 50px);
+      }
+    }
+
+    @media (min-width: 996px) and (max-width: 1280px) {
+      &.org-item-sub {
+        position: absolute;
+        display: block;
+        top: -30%;
+        left: 10%;
+      }
+    }
+  }
+
+  &-item-anchor {
+    display: block;
+    flex: 1;
+    text-decoration: none;
+    color: $body-color;
+    margin: 0 auto;
+    
+    background-color: #fff;
+    // background-clip: border-box;
+    // border: $card-border-width solid $card-border-color;
+    // @include border-radius($card-border-radius);
+    // box-shadow: $card-box-shadow;
+    padding: .7rem;
+    transition: all .3s cubic-bezier(.05, .74, .27, .99);
+
+    position: relative;
+    // max-width: $org-card-width;
+    // min-width: $org-card-width;
+    z-index: 3;
+    @include fix-animation-lags();
+
+
+    &:hover,
+    &:focus {
+      color: $body-color;
+      text-decoration: none;
+      transform: scale(1.05);
+    }
+  }
+
+  &-card {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+  
+    &>span {
+      display: inline-block;
+    }
+  
+    &-detail {
+      display: block;
+      padding-top: 8px;
+      text-align: center;
+  
+      &>span {
+        display: block;
+        font-size: $font-size-sm;
+      }
+
+      .org-card-name {
+        font-size: $font-size-base;
+        color: $primary;
+        font-weight: $font-weight-bold;
+        padding-bottom: px2rem(2px);
+        margin-bottom: px2rem(4px);
+      }
+
+      .org-card-subtitle {
+        color: $body-color;
+        font-weight: $font-weight-bold;
+      }
+    }
+  }
+}
+
+.amcharts-export-menu {
+
+  li {
+    font-size: $font-size-sm;
+  }
+}

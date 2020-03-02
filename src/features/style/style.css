@@ -1,0 +1,38 @@
+.app .ant-popover.sm {
+  width: 150px;
+}
+
+.app .ant-popover.md {
+  width: 200px;
+}
+
+.app .ant-popover.lg {
+  width: 250px;
+}
+
+.app .ant-popover.xl {
+  width: 300px;
+}
+
+.app .ant-popover.xxl {
+  width: 330px;
+}
+
+.app .ant-popover-title {
+  min-width: auto;
+}
+
+.app .ant-popover.popover-no-padding .ant-popover-inner-content {
+  padding: 0px;
+}
+
+.app .ant-popover.popover-no-padding-right .ant-popover-inner-content {
+  padding-right: 0px;
+}
+
+.line-h-r {
+  width: 100%;
+  height: 1px;
+  color: #e8ecf5;
+  background: #e8ecf5;
+}

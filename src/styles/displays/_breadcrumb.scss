@@ -1,0 +1,23 @@
+.breadcrumb {
+  background-color: transparent;
+  padding: $btn-padding-y 0;
+  margin-bottom: 0;
+
+  &>&-item {
+    line-height: $btn-line-height;
+
+    .active {
+      font-weight: 500;
+    }
+  }
+
+  &-item {
+    
+    &:last-child {
+      color: $primary;
+      font-weight: 500;
+      user-select: none;
+      pointer-events: none;
+    }
+  }
+}

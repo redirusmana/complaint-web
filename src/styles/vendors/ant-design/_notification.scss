@@ -1,0 +1,40 @@
+.app {
+  
+  @each $color, $value in $theme-colors {
+    @include bg-variant(".ant-notification-#{$color}", $value);
+
+    .ant-notification-#{$color} {
+      .ant-notification-notice-message,
+      .ant-notification-notice-description {
+        color: $white;
+      }
+    }
+  }
+
+  .ant-notification-notice-message {
+    font-size: #{1.1 * $font-size-lg};
+  }
+
+  .ant-notification-notice-description {
+    font-size: $font-size-base;
+  }
+
+  .ant-notification-notice-close {
+    color: $white;
+  }
+
+  .ant-notification-notice-icon {
+    color: $white;
+    font-size: #{2.2 * $font-size-lg};
+    margin-left: 0;
+  }
+
+  .notice-footer {
+    margin-top: .5rem;
+    font-size: $font-size-sm;
+  }
+
+  .ant-message {
+    z-index: 1100 !important;
+  }
+}

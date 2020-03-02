@@ -1,0 +1,491 @@
+.projectable {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+  height: 100%;
+
+  &-header {
+    flex: none;
+
+    .page-header-controls .page-header {
+      margin-bottom: 0;
+    }
+  }
+  
+  &-body {
+    flex: 1 1 auto;
+    position: relative;
+  }
+}
+
+.task {
+
+  &-modal-wrapper {
+    .ant-modal {
+      top: 50px;
+    }
+
+    .ant-modal-body {
+      padding: 0;
+    }
+    
+    @include desktop-and-tablet {
+
+      .ant-modal-body {
+        height: calc(100vh - 100px);
+      }
+  
+      .ant-modal-close {
+        top: -15px;
+        right: -20px;
+        background: $white;
+        border-radius: 50%;
+        border: 1px solid $border-color;
+      }
+  
+      .ant-modal-close-x {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+      }
+    }    
+  }
+
+  &-detail {
+    height: 100%;
+
+    &-body {
+      @extend .custom-scrollbar;
+    }
+
+    .badge {
+      padding: .375rem .5rem;
+      font-size: $font-size-sm;
+    }
+
+    .btn.btn-link {
+      padding: 0;
+      line-height: $line-height-base;
+      border: 0;
+    }
+
+    &-header {
+      padding: 1rem 1rem 0 1rem;
+      border-bottom: 1px solid $border-color;
+
+      &>.projectable-detail-group>i {
+        padding-top: .25rem;
+      }
+    }
+
+    &-body {
+      padding: .5rem .25rem .5rem 1rem;
+    }
+
+    &-footer {
+      padding: 1rem;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid $border-color;
+    }
+
+    &-aside {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      background-color: mix($kanban-column-bg, $white, 33%);
+
+      &-header,
+      &-footer {
+        padding: 1rem;
+      }
+
+      &-header {
+        border-bottom: 1px solid $border-color;
+        color: $black;
+      }
+
+      &-footer {
+        border-top: 1px solid $border-color;
+        .media-comment.media-comment-input .media-body {
+          margin-left: 0;
+        }
+        .media-comment .media-body::before {
+          content: unset;
+        }
+      }
+      
+      &-body {
+        flex: 1 1 100%;
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 0 1rem;
+
+        @extend .custom-scrollbar;
+      }
+
+      &-title {
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
+
+        i {
+          margin-right: .5rem;
+        }
+      }
+    }
+
+    @include desktop-and-tablet {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      
+      &-main {
+        height: 100%;
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+      }
+
+      &-aside {
+        width: 30%;
+      }
+  
+      &-body {
+        flex: 1 1 100%;
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+    }
+
+    &-group {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      padding-bottom: $projectable-modal-padding-y;
+
+      &>i {
+        font-size: 1.15rem;
+        display: inline-block;
+        padding-top: .15rem;
+      }
+
+      &>div {
+        flex: 1 1 100%;
+        padding: 0 $projectable-modal-padding-x;
+      }
+    }
+
+    &-title,
+    &-subtitle {
+      font-size: $font-size-lg;
+      color: $black;
+      font-weight: $font-weight-bold;
+      margin-bottom: .5rem;
+    }
+
+    &-title {
+      margin-bottom: .25rem;
+
+      textarea {
+        color: black;
+        font-weight: 500;
+      }
+    }
+
+    &-subtitle {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
+
+    &-meta {
+      padding-bottom: $projectable-modal-padding-y;
+    }
+
+    &-tags {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+    }
+
+    &-tag {
+      flex: 1 1 100%;
+
+      &>p {
+        color: $black;
+        font-weight: $font-weight-bold;
+      }
+    }
+
+    &-subtask {
+
+      .subtask-header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: .25rem;
+
+        &>span {
+          display: block;
+        }
+      }
+
+      .subtask-name {
+        flex: 1;
+      }
+
+      .subtask-item {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        margin-bottom: .5rem;
+
+        &>input {
+          flex: 1 1 100%;
+        }
+      }
+
+      .progress {
+        margin-bottom: 0;
+        height: .7rem;
+      }
+    }
+
+    &-attachment {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      margin-bottom: .5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .attachment-detail {
+        flex: 1 1 100%;
+        padding: 0 .25rem;
+
+        &>span {
+          font-size: $font-size-sm;
+          display: block;
+        }
+      }
+
+      .attachment-action {
+        display: inline-flex;
+      }
+    }
+
+    &-activity {
+      margin: .5rem 0;
+      .avatar {
+        display: block;
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        max-width: 30px;
+      }
+
+      &>.media-body {
+        width: calc(100% - 30px);
+        max-width: calc(100% - 30px);
+        min-width: calc(100% - 30px);
+      }
+
+      .activity-item-header {
+        line-height: 1.1;
+        margin-bottom: .25rem;
+        display: flex;
+        flex-direction: column;
+
+        &>div {
+          &:first-child {
+            flex: 1 1 100%;
+          }
+          &:last-child{
+            font-size: .8rem;
+          }
+        }
+      }
+
+      .activity-card.card {
+        margin-bottom: 0;
+
+        .card-body {
+          padding: .375rem .5rem;
+
+        }
+      }
+
+      .activity-badge {
+        white-space: normal;
+        word-break: break-word;
+      }
+    }
+  }
+
+  &-status {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 1;
+
+    .badge {
+      transition: all .25s ease-in-out;
+      width: auto;
+      vertical-align: middle;
+    }
+    
+    .hide-badge {
+      width: 50px;
+      padding: 0;
+      line-height: .375rem;
+    }
+  }
+
+  &-input-date {
+  
+    .form-control {
+      border: 0;
+      line-height: 1rem !important;
+      background-color: transparent;
+      color: inherit;
+    }
+  
+    .ant-input {
+      padding-left: 0;
+      line-height: 1rem !important;
+      height: 1rem !important;
+      background-color: transparent;
+      color: inherit;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-bold;
+    }
+  
+    .ant-calendar-picker-icon {
+      display: none;
+    }
+  }
+
+  &-hoverable {
+    cursor: pointer;
+    &:hover {
+      background-color: $gray-200;
+    }
+  }
+}
+
+.activity-task {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  padding: .5rem 0;
+  color: $body-color;
+  background-color: $white;
+  transition: background-color .25s ease-in-out;
+
+  &-time {
+    width: 4rem;
+    flex: none;
+    padding: 0 .15rem;
+    align-self: center;
+    text-align: center;
+  }
+
+  &-status {
+    width: .3rem;
+    flex: none;
+    border-radius: 0;
+    padding: 0;
+  }
+  
+  &-content {
+    flex: 1 1 100%;
+    padding-left: 6px;
+    overflow: hidden;
+  }
+  
+  &-title {
+    font-size: $font-size-sm;
+    margin-bottom: .25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &-subtitle {
+    @extend .badge;
+    @extend .badge-secondary;
+    padding: .375rem .5rem;
+  }
+
+  &-date,
+  &-year {
+    display: block;
+    color: $black;
+  }
+
+  &-date {
+    font-weight: $font-weight-bold;
+  }
+
+  &-year {
+    font-size: $font-size-sm;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: #EEF8FF;
+  }
+}
+
+.project {
+  &-member {
+    &-info {
+      display: inline-block;
+      padding-right: .5rem;
+      padding-bottom: .5rem;
+      position: relative;
+      
+      .avatar-list>&>.avatar {
+        margin: 0;
+
+        &:not(:last-child) {
+          margin: 0;
+        }
+      }
+
+      .ant-btn-circle {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+        position: absolute;
+        right: .25rem;
+        bottom: .5rem;
+      }
+    }
+  }
+}
+
+.app {
+  .project-info-drawer {
+    .ant-drawer-body {
+      max-height: calc(100vh - 170px);
+      overflow-y: auto;
+    }
+  }
+}

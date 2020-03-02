@@ -1,0 +1,153 @@
+.activity-calendar-container {
+  @extend .container;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  padding: .5rem;
+}
+
+.activity-calendar-event {
+  .badge {
+    border-radius: 50%;
+    padding: 0;
+    width: .5rem;
+    height: .5rem;
+    line-height: .5rem;
+    margin-right: .25rem;
+    vertical-align: baseline;
+    font-size: 100%;
+  }
+}
+
+.activity-event-tooltip {
+  .ant-tooltip-inner {
+    font-size: $font-size-base;
+    border-color: $border-color;
+    background-color: $white;
+    color: $body-color;
+    width: #{$kanban-column-width - 25px};
+  }
+
+  &.ant-tooltip>.ant-tooltip-content>.ant-tooltip-arrow {
+    border-bottom-color: $white;
+    border-top-color: $white;
+  }
+}
+
+.big-calendar {
+  height: 100%;
+  
+  .rbc-custom-toolbar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-bottom: .5rem;
+
+    &>div {
+      flex: 1;
+    }
+
+    .rbc-custom-toolbar-left {
+      text-align: left;
+    }
+
+    .rbc-custom-toolbar-center {
+      text-align: center;
+
+      .btn {
+        border-radius: 50%;
+        padding: .25rem .375rem;
+      }
+    }
+
+    .rbc-custom-toolbar-label {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      margin: 0 .5rem;
+    }
+
+    .rbc-custom-toolbar-right {
+      text-align: right;
+    }
+  }
+
+
+  .rbc-header,
+  .rbc-header + .rbc-header,
+  .rbc-day-bg,
+  .rbc-day-bg + .rbc-day-bg,
+  .rbc-month-row,
+  .rbc-month-row + .rbc-month-row,
+  .rbc-month-view {
+    border-color: $kanban-column-bg;
+  }
+
+  .rbc-header,
+  .rbc-agenda-view table.rbc-agenda-table thead > tr > th {
+    padding: .75rem 0.5rem;
+    text-align: center;
+    font-weight: $font-weight-bold;
+    color: $body-color;
+  }
+
+  .rbc-date-cell {
+    padding: .25rem .5rem;
+    text-align: right;
+  }
+
+  .rbc-off-range-bg {
+    background-color: mix(#f5f5f5, $white, 70%);
+  }
+
+  .rbc-row-segment {
+    padding: 0 .25rem .25rem .25rem;
+  }
+  
+  .rbc-event {
+    padding: .3rem .5rem;
+    background-color: $white;
+    box-shadow: 0 1px 15px 1px rgba(69,65,78,.08);
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    color: $body-color;
+    font-size: $font-size-sm;
+
+    &.rbc-selected {
+      background-color: $kanban-column-bg;
+      color: $body-color;
+    }
+  }
+
+  .rbc-month-view {
+
+    .rbc-overlay {
+      padding: .5rem .75rem;
+      
+      .rbc-overlay-header {
+        padding: 1rem .75rem .5rem .75rem;
+        font-weight: $font-weight-bold;
+        color: $black;
+        margin-bottom: .75rem;
+        text-align: center;
+      }
+
+      .rbc-event {
+        margin-top: .5rem;
+        margin-bottom: .5rem;
+      }
+    }
+
+    .rbc-show-more {
+      background-color: transparent;
+      font-weight: $font-weight-normal;
+      padding-top: .5rem;
+      padding-left: .25rem;
+    }
+  }
+}

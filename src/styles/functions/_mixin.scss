@@ -1,0 +1,529 @@
+//
+//** Global Mixins
+//
+
+//== Flexbox mixins
+@mixin flexbox() {
+  display: flex; 
+}
+
+@mixin flexbox-orient-hor() {
+  box-orient: horizontal;
+  flex-direction: row;
+}
+
+@mixin flexbox-orient-ver() {
+  box-orient: vertical;
+  flex-direction: column;
+}
+
+@mixin flexbox-order($order) {
+  order: $order;
+}
+
+@mixin flexbox-flex($flex) {
+  /* previous syntax */
+  box-flex: $flex;
+  display: flex;
+}
+
+@mixin flexbox-flow($flow) {
+  box-flow: $flow;
+  flex-flow: $flow;
+}
+
+@mixin flexbox-wrap($wrap) {
+  box-wrap: $wrap;
+  flex-wrap: $wrap;
+}
+
+@mixin flexbox-direction($dir) {
+	flex-direction: $dir;
+} 
+
+@mixin flexbox-justify-content($value) {
+  justify-content: $value;
+}
+
+
+@mixin flexbox-align-items($value) {
+  align-items: $value;
+}
+
+//== Vertical and Horizontal center
+@mixin vertical-horizontal-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  @include transform(translate(-50%, -50%));
+}
+
+//== Vertical center
+@mixin vertical-center {
+  position: absolute;
+  top: 50%;
+  @include transform(translate(-50%));
+}
+
+//== Vertical bottom
+@mixin vertical-bottom {
+  position: absolute;
+  top: 100%;
+  @include transform(translate(-100%));
+}
+
+//== Vertical and Horizontal center using flexbox
+@mixin vertical-horizontal-center-flexbox {
+  @include flexbox();
+  @include flexbox-justify-content(center);
+  @include flexbox-align-items(center);
+  text-align: center;
+  vertical-align: middle;
+}
+
+    
+//== Clear Whitespace
+@mixin no-whitespace() {
+	white-space: -moz-pre-wrap; /* Firefox */
+	white-space: -o-pre-wrap; /* Opera */
+	white-space: pre-wrap; /* Chrome */
+	word-wrap: break-word; /* IE */
+}
+
+//== Gradient color
+@mixin text-gradient($gradient) {
+	background: -webkit-linear-gradient(#{$gradient});
+	background: linear-gradient(#{$gradient});
+
+	background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+	// ie8-11 versions hack
+  @include hack-ie8-11 {
+    background: transparent;    	
+  }
+}
+
+//== Full height element
+@mixin make-full-height() {
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+//== Vertical Center
+@mixin vertical-middle($position: absolute) {
+	position: #{$position};
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+//== Opacity
+@mixin opacity($value, $important: '') {
+	opacity: $value #{$important};
+	filter: alpha(opacity=#{$value * 100}) #{$important};
+}
+
+//== Border radius
+@mixin border-radius($radius, $important: '') {
+	-webkit-border-radius: $radius#{$important};
+	-moz-border-radius: $radius#{$important};
+	-ms-border-radius: $radius#{$important};
+	-o-border-radius: $radius#{$important};
+	border-radius: $radius#{$important};
+}
+
+//== Border top left radius
+@mixin border-top-left-radius($radius, $important: '') {
+  border-top-left-radius: $radius#{$important};
+}
+
+//== Border top right radius
+@mixin border-top-right-radius($radius, $important: '') {
+  border-top-right-radius: $radius#{$important};
+}
+
+//== Border bottom left radius
+@mixin border-bottom-left-radius($radius, $important: '') {
+  border-bottom-left-radius: $radius#{$important};
+}
+
+//== Border bottom right radius
+@mixin border-bottom-right-radius($radius, $important: '') {
+  border-bottom-right-radius: $radius#{$important};
+}
+
+//== Set Placeholder Text Color
+@mixin input-placeholder($color: $input-color-placeholder) {
+	&::-moz-placeholder {
+		color: $color;
+		opacity: 1;
+	}
+	// See https://github.com/twbs/bootstrap/pull/11526
+	&:-ms-input-placeholder {
+		color: $color;
+	}
+	// Internet Explorer 10+
+	&::-webkit-input-placeholder {
+		color: $color;
+	}
+	// Safari and Chrome
+}
+
+@mixin input-autofill($color) {
+  &:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px $color inset !important;
+
+    &:hover,
+    &:focus {
+      -webkit-box-shadow: 0 0 0px 1000px $color inset !important;
+    }
+  }
+}
+
+//== Reset input
+@mixin reset-input() {
+	border: 0;
+	background: none;
+	outline: none !important;
+	@include shadow(none);
+}
+
+//== Fixed positioned element smooth
+@mixin fix-fixed-position-lags() {
+	// webkit hack for smooth font view on fixed positioned elements
+	-webkit-backface-visibility:hidden; 
+	backface-visibility:hidden; 
+}
+
+//== Fixed positioned element smooth
+@mixin fix-animation-lags() {
+    @include transform(translateZ(0)); 
+    -webkit-transform-style: preserve-3d;
+}
+
+@mixin fix-webkit-animation-font() {
+   -webkit-transform-style: preserve-3d;
+   -webkit-transform: translateZ(0px);
+   -webkit-font-smoothing: subpixel-antialiased; 
+   -webkit-backface-visibility:hidden;
+}
+
+//== Box Shadow
+@mixin shadow($shadow, $important: '') {
+	box-shadow: #{$shadow} #{$important};
+}
+
+//== Attribute
+@mixin attr($attr, $value) {
+  @if  $value != null  {
+    #{$attr}: #{$value}; 
+  }
+}
+
+//== Rounded mode
+@mixin rounded {
+  @if $m--rounded == true {
+    @content;
+  }
+}
+
+//== Transform
+@mixin transform($degree) {  
+	transform: #{$degree};
+}
+
+//== Animation
+@mixin animation($animation) {
+	animation: #{$animation};
+
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    animation: none !important;        
+  }
+}
+
+//== Animation FIll Mode
+@mixin animation-fill-mode($mode) {
+  animation-fill-mode: #{$mode};
+}
+
+//== Transition
+@mixin transition($transition) {
+  transition: #{$transition};
+}
+
+//== Keyframes
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} {
+      @content;
+  }
+  @-moz-keyframes #{$animationName} {
+      @content;
+  }
+  @-o-keyframes #{$animationName} {
+      @content;
+  }
+  @keyframes #{$animationName} {
+      @content;
+  }
+}
+
+//== Media Query - Responsive Below
+@mixin responsive-below($width) {
+  @media (max-width: #{$width}) {
+    @content;
+  }
+}
+
+//== Media Query - Responsive Above
+@mixin responsive-above($width) {
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}
+
+//== Media Query - Min Desktop Mode
+@mixin minimal-desktop {
+ 	@media (min-width: #{map-get($grid-breakpoints, "lg") + 1px}) and (max-width: #{map-get($grid-breakpoints, "xl")}) {
+    @content;
+  }
+}
+
+//== Media Query - Min Desktop And Below Mode
+@mixin minimal-desktop-and-below {
+  @media (max-width: #{map-get($grid-breakpoints, "xl")}) {
+      @content;
+  }
+}
+
+//== Media Query - Desktop Mode
+@mixin desktop {
+  @media (min-width: #{map-get($grid-breakpoints, "lg") + 1px}) {
+    @content;
+  }
+}
+
+//== Media Query - Desktop & Tablet Modes
+@mixin desktop-and-tablet {
+  @media (min-width: #{map-get($grid-breakpoints, "md") + 1px}) {
+    @content;
+  }
+}
+
+//== Media Query - Tablet Mode
+@mixin tablet {
+  @media (min-width: #{map-get($grid-breakpoints, "md") + 1px}) and (max-width: #{map-get($grid-breakpoints, "lg")}) {
+    @content;
+  }
+}
+
+//== Media Query - Tablet & Mobile Modes
+@mixin tablet-and-mobile {
+  @media (max-width: #{map-get($grid-breakpoints, "lg")}) {
+    @content;
+  }
+}
+
+//== Media Query - Mobile Mode
+@mixin mobile {
+  @media (max-width: #{map-get($grid-breakpoints, "md")}) {
+    @content;
+  }
+} 
+
+//== IE8-11 versions hack
+@mixin hack-ie8-11 {
+	@media screen\0 {
+		@content;
+	}
+}
+
+//== Edge All versions hack
+@mixin hack-edge-all {
+	@supports (-ms-ime-align:auto) {
+		@content;
+	}
+}
+
+//== Icon Sizing
+// sass list:  (lineawesome: 1.1rem, fontawesome: 1.2rem, metronic: 1.1rem)
+@mixin icons-size($config) {
+  // lineawesome
+  [class^="la-"], 
+  [class*=" la-"] {
+    font-size: map-get($icon-size,  'lineawesome');
+  } 
+
+  // fontaweseom icons 
+  [class^="fa-"], 
+  [class*=" fa-"] {
+    font-size: map-get($icon-size,  'fontawesome');
+  } 
+
+  // metronic icons 
+  [class^="flaticon-"], 
+  [class*=" flaticon-"] {
+    font-size: map-get($icon-size,  'metronic');
+  }
+}
+
+//== Icon attr
+// sass list:  (lineawesome: 1.1rem, fontawesome: 1.2rem, metronic: 1.1rem)
+@mixin icons-attr($attr, $config) {
+  // lineawesome
+  [class^="la-"], 
+  [class*=" la-"] {
+    #{$attr}: map-get($icon-size,  'lineawesome');
+  } 
+
+  // fontaweseom icons 
+  [class^="fa-"], 
+  [class*=" fa-"] {
+    #{$attr}: map-get($icon-size,  'fontawesome');
+  } 
+
+  // metronic icons 
+  [class^="flaticon-"], 
+  [class*=" flaticon-"] {
+    #{$attr}: map-get($icon-size,  'metronic');
+  }
+}
+
+@mixin icons-style {
+  // lineawesome
+  [class^="la-"], 
+  [class*=" la-"],
+    // fontaweseom icons 
+  [class^="fa-"], 
+  [class*=" fa-"],
+  // metronic icons 
+  [class^="flaticon-"], 
+  [class*=" flaticon-"] {
+      @content;
+  } 
+}
+
+//== Metronic icon
+@mixin icon($default-state) {
+  &:before {
+    display: inline-block;
+    font-family: "Metronic";
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    line-height: 0px;
+    text-decoration: inherit;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    content: "#{$default-state}";
+  }
+}
+
+//== Iconify an element
+@mixin icon-self($default-state) {
+  display: inline-block;
+  font-family: "Metronic";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 0px;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  content: "#{$default-state}";
+}
+
+//== Lineawesome icon
+@mixin la-icon($icon) {
+  font-family: "LineAwesome";
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  
+  &:before {
+      content: "#{$icon}";
+  }
+}
+
+//== Lineawesome icon
+@mixin la-icon-self($icon) {
+  font-family: "LineAwesome";
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  content: "#{$icon}";
+}
+
+//== Close icon
+@mixin close-icon($self:null) {
+  @if $self == true {
+    @include la-icon-self( map-get($icon-content, 'close') );
+  } @else {
+    @include la-icon( map-get($icon-content, 'close') );
+  }
+}
+
+//== Arrow down icon
+@mixin arrow-icon($dir, $self:null) {
+  @if $dir == down {
+    @if $self == true {
+      @include la-icon-self( map-get($icon-content, 'down') );
+    } @else {
+      @include la-icon( map-get($icon-content, 'down') );
+    }
+  }
+
+  @if $dir == up {
+    @if $self == true {
+      @include la-icon-self( map-get($icon-content, 'up') );
+    } @else {
+      @include la-icon( map-get($icon-content, 'up') );
+    }
+  }
+
+  @if $dir == left {
+    @if $self == true {
+      @include la-icon-self( map-get($icon-content, 'left') );
+    } @else {
+      @include la-icon( map-get($icon-content, 'left') );
+    }
+  }
+
+  @if $dir == right {
+    @if $self == true {
+      @include la-icon-self(map-get($icon-content, 'right'));
+    } @else {
+      @include la-icon( map-get($icon-content, 'right') );
+    }
+  }
+}
+
+@mixin animation-delay($delay) {
+  animation-delay: $delay;
+}
+
+@mixin opacity($value) {
+  opacity: $value;
+}
+
+@mixin filter($value) {
+  filter: $value;
+}

@@ -1,0 +1,92 @@
+.app {
+
+  // Timepicker
+  .ant-time-picker {
+    width: auto;
+
+    input {
+      height: #{$input-height - 0.1rem};
+      border: 0;
+      box-shadow: none;
+      border-radius: $input-border-radius;
+      color: $input-color;
+      font-weight: 300;
+
+      &::placeholder {
+        color: $input-placeholder-color;
+      }
+    }
+  }
+
+  .ant-time-picker-panel-input-wrap {
+    height: 1.1 * $input-height;
+    padding-top: 2 * $input-padding-y;
+    padding-bottom: 2 * $input-padding-y;
+  }
+
+  .ant-time-picker-panel-clear-btn {
+    top: 0.3 * $input-height;
+    right: 3px;
+  }
+
+  // Datepicker
+  .ant-calendar-picker {
+    input {
+      min-width: 90px;
+      height: 2.2rem;
+      border: 0;
+      box-shadow: none;
+      border-radius: $input-border-radius;
+      color: $input-color;
+      font-weight: 300;
+
+      &::placeholder {
+        // color: $black;
+        color: $input-placeholder-color;
+      }
+    }
+
+    &-small {
+      border-radius: $input-border-radius-sm;
+
+      input {
+        height: $input-height-inner-sm;
+        border: 0;
+        border-radius: $input-border-radius-sm;
+        box-shadow: none;
+        font-size: $font-size-sm;
+
+      }
+    }
+  }
+
+  .ant-calendar-input-wrap {
+    height: 1.2 * $input-height;
+    padding-top: 2 * $input-padding-y;
+    padding-bottom: 2 * $input-padding-y;
+  }
+
+  .ant-calendar {
+
+    [class$="selected-cell"] {
+
+      a:not([href]):not([tabindex]) {
+        color: $white;
+
+        @include hover-focus {
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .ant-calendar-ok-btn {
+    &:not([href]):not([tabindex]) {
+      color: $white;
+
+      @include hover-focus {
+        color: $white;
+      }
+    }
+  }
+}

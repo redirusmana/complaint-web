@@ -1,0 +1,125 @@
+.collapse-list {
+  &-item {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  &-link {
+    display: block;
+    position: relative;
+    font-size: .9rem;
+    color: $body-color;
+    padding: .5rem 0 .5rem 1.2rem;
+    border-radius: $border-radius;
+    text-align: left;
+    
+    i {
+      margin-right: .25rem;
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    &:hover {
+      background-color: rgba($primary, .06);
+      color: $primary;
+    }
+  }
+  
+  &-toggler {
+    
+    & + .collapse-list-link {
+      &:before {
+        position: absolute;
+        top: 50%;
+        left: .5rem;
+        width: 0;
+        height: 0;
+        content: "";
+        border-top: .3em solid;
+        border-right: .3em solid transparent;
+        border-bottom: 0;
+        border-left: .3em solid transparent;
+        transform: translateY(-50%) rotate(-90deg);
+        will-change: transform;
+        transition: transform .25s ease-in-out;
+      }
+    }
+
+    &.collapsing + .collapse-list-link,
+    &.collapse.show + .collapse-list-link,
+    .collapse-active {
+      background-color: rgba($primary, .06);
+      color: $primary;
+      font-weight: 500;
+
+      &:before {
+        transform: translateY(-50%) rotate(0);
+      }
+    }
+  }
+  
+  &-items &-items {
+    padding-left: .75rem;
+  }
+
+  &-item-text {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.list-category {
+  
+  .list-inline-item a {
+    display: inline-block;
+    border-radius: $border-radius;
+    background-color: $color-master-lightest;
+    padding: $btn-padding-y $btn-padding-x;
+    margin-bottom: #{$btn-padding-y * 1.5};
+    color: $color-master-dark;
+
+    &:hover {
+      background-color: $color-master-light;
+      color: $color-master-darkest;
+    }
+
+    &.active {
+      background-color: $primary;
+      color: $white;
+    }
+  }
+}
+
+.uploaded-list {
+  display: block;
+  position: relative;
+
+  .uploaded-item {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+
+    &>span {
+      display: block;
+      padding-left: .5rem;
+    }
+
+    .upload-item-name {
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      word-break: break-all;
+      padding-left: 0;
+      padding-right: .25rem;
+    }
+
+    .upload-item-number {
+      width: 30px;
+    }
+  }
+}

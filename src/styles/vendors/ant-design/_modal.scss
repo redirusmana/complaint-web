@@ -1,0 +1,60 @@
+.ant-modal {
+
+  .app &-mask,
+  .app &-wrap {
+    z-index: 1080;
+  }
+
+  .app & {
+    width: 100%;
+  }
+
+  .app &-content {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
+  @include desktop {
+    .app .ant-modal-small & {
+      max-width: 320px;
+    }
+
+    .app .ant-modal-medium & {
+      max-width: 720px;
+    }
+
+    .app .ant-modal-large & {
+      max-width: 1024px;
+    }
+  }
+
+  @include tablet-and-mobile {
+
+    .app .ant-modal-medium &,
+    .app .ant-modal-large &,
+    .app .ant-modal-small & {
+      max-width: 100%;
+    }
+  }
+
+  @include mobile {
+    .app &-content {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+}
+
+.ant-btn {
+  @extend .btn;
+  @extend .btn-default;
+
+  &.ant-btn-primary {
+    @extend .btn-primary;
+  }
+
+  &.ant-btn-danger {
+    @extend .btn-danger;
+  }
+}

@@ -1,0 +1,28 @@
+.app {
+
+  .ant-tooltip {
+    z-index: 1090;
+
+    &-inner {
+      font-size: $font-size-base;
+      background-color: rgba($color-master, .75);
+      color: $white;
+    }
+
+    &>.ant-tooltip-content>.ant-tooltip-arrow {
+      border-bottom-color: rgba($color-master, .75);
+    }
+  }
+
+  .ant-popover {
+    z-index: 1080;
+
+    &.popover-noarrow {
+      padding-top: 0;
+
+      .ant-popover-arrow {
+        display: none;
+      }
+    }
+  }
+}

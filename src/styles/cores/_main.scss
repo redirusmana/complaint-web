@@ -1,0 +1,101 @@
+html {
+	font-size: 16px;
+	height: 100%;
+	direction: ltr;
+}
+
+body {
+	direction: ltr;
+	// -webkit-font-smoothing: antialiased;
+	// -moz-osx-font-smoothing: grayscale;
+	// -webkit-tap-highlight-color: transparent;
+	// -webkit-text-size-adjust: none;
+	// -ms-touch-action: manipulation;
+	// touch-action: manipulation;
+	height: 100%;
+	// overflow-y: scroll;
+	position: relative;
+
+	@extend .custom-scrollbar;
+
+	* {
+		@extend .custom-scrollbar;
+	}
+
+	@media print {
+		background: none;
+	}
+}
+
+
+.error-not-found {
+	// background: url('../assets/error-bg.png') no-repeat;
+}
+
+.error-not-implemented {
+	// background: url('../assets/error-not-implemented.jpg') no-repeat;
+}
+
+.error-wrapper {
+	position: relative;
+	display: block;
+	background-size: contain;
+	background-position: center right;
+
+	.error-container {
+		position: relative;
+		min-height: calc(100vh - 300px);
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		height: 100%;
+	}
+
+	.subtitle {
+		font-size: 1.7rem;
+	}
+
+	.description {
+		font-size: 1.1rem;
+	}
+}
+
+.col-login {
+	max-width: 25rem;
+	width: 100%;
+}
+
+a {
+	text-decoration: none;
+
+	&:focus,
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+a[disabled].btn-primary {
+	color: $white;
+}
+
+.img-icon {
+	display: inline-block;
+	width: 1.25rem;
+	height: 1.25rem;
+
+	.dropdown-item & {
+		margin-right: .5rem;
+	}
+}
+
+.app {
+
+	p {
+		letter-spacing: 0.1px;
+	}
+}
+
+.flex-1 {
+	flex: 1;
+}

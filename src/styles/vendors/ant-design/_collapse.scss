@@ -1,0 +1,27 @@
+.app {
+  
+  .ant-collapse {
+  
+    &-borderless>.ant-collapse-item {
+      border-bottom: 0;
+    }
+
+    &>.ant-collapse-item {
+
+      .ant-collapse-header {
+        padding-left: 0;
+
+        .arrow {
+          left: auto;
+          right: 0;
+        }
+      }
+
+      .ant-collapse-content-box {
+        padding-bottom: 0; 
+      }
+    }
+  }
+
+}
+

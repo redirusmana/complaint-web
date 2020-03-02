@@ -1,0 +1,161 @@
+.calendar-timeline {
+  // font-family: $headings-font-family;
+  // font-weight: 400;
+
+  &-item {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    
+    @include desktop-and-tablet {
+      flex-direction: row;
+      margin-bottom: 1rem;
+    }
+  }
+
+  &-control {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 10;
+  }
+
+  &-group {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding: 0 .5rem;
+    font-weight: $font-weight-bold;
+    background-color: $white;
+    
+    @include desktop-and-tablet {
+      position: sticky;
+      top: 76px;
+      top: 219px;
+      width: 160px;
+    }
+
+    @include mobile {
+      display: none;
+    }
+
+    &-date {
+      position: relative;
+      flex: 1;
+      width: 99%;
+
+      p {
+        @extend .event-date-icon;
+      }
+    }
+  }
+
+  &-content {
+    flex: 1;
+    width: 100%;
+    position: relative;
+
+    &-item {
+      display: flex;
+      position: relative;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      border: 1px solid $card-border-color;
+      margin-bottom: .75rem;
+      border-radius: $card-border-radius;
+      box-shadow: $card-box-shadow;
+      color: $body-color;
+
+      @include desktop-and-tablet {
+        flex-direction: row;
+      }
+
+      &:hover {
+        .calendar-timeline-content-thumbnail::after {
+          background-color: rgba($black, 0.5);
+        }
+        .calendar-timeline-content-body {
+          background-color: rgba($primary, .1);
+        }
+      }
+    }
+
+    &-thumbnail {
+      position: relative;
+      flex: auto;
+      min-width: 200px;
+      min-height: 85px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      border-top-left-radius: $card-border-radius;
+      border-bottom-left-radius: $card-border-radius;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba($black, 0.3);
+        border-top-left-radius: $card-border-radius;
+        border-bottom-left-radius: $card-border-radius;
+      }
+    }
+
+    &-body {
+      flex: 1 1 100%;
+      padding: .75rem;
+    }
+
+    &-title {
+      font-weight: $font-weight-bold;
+      // font-size: 15px;
+      // font-family: $headings-font-family;
+      line-height: $headings-line-height;
+      margin-bottom: $headings-margin-bottom;
+    }
+
+    &-subtitle {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      align-items: flex-start;
+      span {
+        line-height: 1.2;
+      }
+    
+      i {
+        font-size: $font-size-lg;
+      }
+    }
+  
+    &-meta {
+
+      &>div {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        line-height: 1.2;
+        font-weight: $font-weight-light;
+      }
+
+      i { 
+        font-size: $font-size-lg;
+      }
+    }
+  }
+
+
+  &-meeting {
+    .calendar-timeline-content-thumbnail {
+      min-width: 300px;
+      min-height: 125px;
+    }
+  }
+}

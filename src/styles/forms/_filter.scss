@@ -1,0 +1,44 @@
+.filter {
+  
+  &-container {
+    display: block;
+    position: relative;
+    box-shadow: $card-box-shadow;
+    padding: $card-spacer-y $card-spacer-y;
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+  }
+
+  @include desktop {    
+    &-row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      margin-left: -3px;
+      margin-right: -3px;
+
+      &>.filter-item {
+        flex: 1;
+        padding-left: 3px;
+        padding-right: 3px;
+        margin-bottom: .25rem;
+      }
+    }
+  }
+
+  &-item {
+    border: .25rem solid transparent;
+  }
+}
+
+.page-header {
+  
+  .page-header-controls & {
+    margin-bottom: .75rem;
+  }
+
+  &-controls .filter-container {
+    margin-bottom: .75rem;
+  }
+}

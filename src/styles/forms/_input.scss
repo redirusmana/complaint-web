@@ -1,0 +1,86 @@
+.input-icon {
+	position: relative;
+
+	.form-control:not(:last-child) {
+		padding-right: 2.5rem;
+	}
+
+	.form-control:not(:first-child) {
+		padding-left: 2.5rem;
+	}
+}
+
+.input-icon-addon {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	color: $text-muted;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 2.5rem;
+	pointer-events: none;
+
+	&:last-child {
+		left: auto;
+		right: 0;
+	}
+}
+
+.DayPickerInput {
+	width: 100%;
+}
+
+.invalid-feedback {
+	display: block;
+}
+
+.app {
+	
+	[class*="ant-"] {
+		font-family: $font-family-base;
+	}
+}
+
+
+input,
+select {
+	&::placeholder {
+		font-weight: 300;
+	}
+}
+
+.form-article-title {
+	margin-bottom: .25rem;
+	border: none;
+	padding: $card-spacer-y 0 0;
+	font-size: 21px;
+	border-radius: 0;
+	
+	&:focus {
+		box-shadow: none;
+	}
+}
+
+.form-borderless {
+	box-shadow: none;
+	border: 0;
+	padding: 0;
+	resize: none;
+	&:focus {
+		box-shadow: none;
+		border: 0;
+		padding: 0;
+	}
+}
+
+textarea.autosize {
+	display: block;
+	overflow: hidden;
+	resize: none;
+	height: auto;
+	width: 100%;
+
+	@include input-placeholder($input-placeholder-color);
+}

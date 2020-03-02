@@ -1,0 +1,239 @@
+.widget {
+  display: flex;
+  box-sizing: border-box;
+  position: relative;
+  flex-flow: column wrap;
+  padding: $card-spacer-y $card-spacer-x;
+  border-radius: $border-radius;
+  border: 1px solid $card-border-color;
+  margin-bottom: $card-margin-bottom;
+
+  &-body {
+    flex: 1;
+  }
+
+  
+  &-counter {
+    text-align: center;
+    
+    p {
+      margin-bottom: 0;
+    }
+    
+    h3 {
+      margin-top: .25rem;
+      margin-bottom: .25rem;
+    }
+  }
+
+  &-day-bg {
+    font-size: 1.2rem;
+    padding: 0;
+    height: 100px;
+    justify-content: center;
+    text-align: center;
+    color: $white;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    
+    div {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+div[class*="bg-"] {
+
+  &.widget {
+    border-color: transparent;
+
+    * {
+      color: $color-master-lightest;
+    }
+  }
+}
+
+.file-icon {
+
+  &-img {
+    display: inline-block;
+  }
+  
+  @each $size, $value in $file-icons {
+    &-#{$size} {
+      .file-icon-img {
+        width: $value;
+        height: $value;
+      }
+    }
+  }
+}
+
+.widget-calendar {
+  box-shadow: $card-box-shadow;
+
+  &.widget {
+    padding: .25rem 0;
+  }
+
+  .date-today {
+    background-color: rgba($warning, 0.3);
+    font-weight: bold;
+  }
+  
+  .date-selected {
+    border: 1px solid $primary;
+    color: $primary;
+  }
+
+  .date-weekend {
+    color: $danger;
+  }
+
+  .date-has-event {
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 20%;
+      left: 50%;
+      height: 8px;
+      width: 8px;
+      border-radius: 50%;
+      background-color: $gray-400;
+      transform: translateX(-50%); 
+    }
+  }
+
+  .day-outside {
+    opacity: 0.35;
+  }
+
+  &-controls {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: .75rem 0;
+  }
+
+  &-control {
+    flex: 1;
+    text-align: center;
+
+    button {
+      
+      i {
+        font-weight: bold;
+        font-size: $h4-font-size;
+      }
+    }
+  }
+
+  &-control-main {
+    flex: 3;
+  }
+
+  &-control-select {
+    text-align: left;
+    
+    .app & {
+      .ant-calendar-picker {
+        width: 100%;
+      }
+      .ant-calendar-picker input {
+        text-align: center;
+        font-size: $h4-font-size;
+        font-weight: $font-weight-bold;
+      }
+      .ant-calendar-picker-icon {
+        display: none;
+      }
+    }
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 3px;
+  
+    thead {
+      tr {
+        th {
+          width: 100 / 7 * 1%;
+          text-align: center;
+          line-height: 30px;
+          font-weight: $font-weight-base;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+
+        border-top: 1px solid $border-color;
+
+        td {
+          width: 100 / 7 * 1%;
+          height: 3.5rem;
+          line-height: 1;
+          text-align: center;
+          vertical-align: middle;
+          padding: .25rem;
+          position: relative;
+          cursor: pointer;
+          border: 1px solid $white;
+          
+          &:hover {
+            background-color: rgba($primary, 0.1);
+          }
+
+          .date {
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: -20px;
+            width: 1.75rem;
+            line-height: 1.65rem;
+            border-radius: 50%;
+          }
+
+        }
+      }
+    }
+  }
+
+  &-events {
+    @extend .table-responsive;
+    padding: 0 .5rem;
+  }
+}
+
+.widget-confetti {
+  // background-image: url('../assets/images/bg-confetti.png');
+  // background-repeat: repeat-y;
+  // background-size: cover;
+  // background-position: center center;
+  // padding: .2rem;
+
+  .card-header,
+  .card-body,
+  .card-footer {
+    background-color: $white;
+  }
+
+  .card-header {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+}
