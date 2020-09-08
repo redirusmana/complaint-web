@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import cn from 'classnames';
-import get from 'lodash/get';
-import kebabCase from 'lodash/kebabCase';
-import Fuse from 'fuse.js';
-import Pagination from '../display/Pagination';
-import InputSelect from '../form/InputSelect';
-import InputSearch from '../form/InputSearch';
-import { MAX_ITEM_OPTIONS } from './constant';
-import TableDataRow from './TableDataRow';
-import TableHeaderCell from './TableHeaderCell';
+import React from "react";
+import PropTypes from "prop-types";
+import cn from "classnames";
+import get from "lodash/get";
+import kebabCase from "lodash/kebabCase";
+import Fuse from "fuse.js";
+import Pagination from "../Display/Pagination";
+import InputSelect from "../Commons/InputSelect";
+import InputSearch from "../Commons/InputSearch";
+import { MAX_ITEM_OPTIONS } from "./constant";
+import TableDataRow from "./TableDataRow";
+import TableHeaderCell from "./TableHeaderCell";
 
 const sortDataSource = (data, sortKey, sortValue) =>
   data.sort((a, b) => {
@@ -36,9 +36,14 @@ class TableClient extends React.PureComponent {
 
     const sortKey = initialSortKey || state.sortKey;
     const sortValue = initialSortValue || state.sortValue;
-    const page = pagination && pagination.currentPage !== 0 ? pagination.currentPage : state.page;
+    const page =
+      pagination && pagination.currentPage !== 0
+        ? pagination.currentPage
+        : state.page;
     const maxItem =
-      pagination && pagination.maxItem !== 0 ? pagination.maxItem || sortedDataSource.length : state.maxItem;
+      pagination && pagination.maxItem !== 0
+        ? pagination.maxItem || sortedDataSource.length
+        : state.maxItem;
     const totalItem = sortedDataSource.length;
     const totalPage = Math.ceil(totalItem / maxItem);
 
@@ -61,7 +66,7 @@ class TableClient extends React.PureComponent {
 
     this.state = {
       dataSource: [],
-      sortKey: '',
+      sortKey: "",
       sortValue: 0,
       page: 1,
       totalItem: 0,
@@ -74,7 +79,11 @@ class TableClient extends React.PureComponent {
     const { dataSource: propsDataSource, searchKey } = this.props;
 
     const { sortKey, sortValue, maxItem } = this.state;
-    const sortedDataSource = sortDataSource(propsDataSource, sortKey, sortValue);
+    const sortedDataSource = sortDataSource(
+      propsDataSource,
+      sortKey,
+      sortValue
+    );
 
     const fuzzySearch = new Fuse(sortedDataSource, {
       shouldSort: false,
@@ -86,14 +95,19 @@ class TableClient extends React.PureComponent {
       keys: [searchKey]
     });
 
-    const filteredDataSource = value !== '' ? fuzzySearch.search(value) : sortedDataSource;
+    const filteredDataSource =
+      value !== "" ? fuzzySearch.search(value) : sortedDataSource;
 
-    const totalPage = maxItem > 0 ? Math.ceil(filteredDataSource.length / maxItem) : 1;
+    const totalPage =
+      maxItem > 0 ? Math.ceil(filteredDataSource.length / maxItem) : 1;
 
     const usedPage = 1;
 
     this.setState({
-      dataSource: filteredDataSource.slice((usedPage - 1) * maxItem, usedPage * maxItem),
+      dataSource: filteredDataSource.slice(
+        (usedPage - 1) * maxItem,
+        usedPage * maxItem
+      ),
       totalItem: filteredDataSource.length,
       page: usedPage,
       totalPage
@@ -115,10 +129,13 @@ class TableClient extends React.PureComponent {
       newSortValue = 1;
     }
 
-    const sortedDataSource = newSortValue !== 0 ? sortDataSource(propsDataSource, name, newSortValue) : propsDataSource;
+    const sortedDataSource =
+      newSortValue !== 0
+        ? sortDataSource(propsDataSource, name, newSortValue)
+        : propsDataSource;
 
     this.setState({
-      sortKey: newSortValue !== 0 ? name : '',
+      sortKey: newSortValue !== 0 ? name : "",
       sortValue: newSortValue,
       dataSource: sortedDataSource.slice((page - 1) * maxItem, page * maxItem)
     });
@@ -144,7 +161,10 @@ class TableClient extends React.PureComponent {
     this.setState({
       maxItem: usedValue,
       page: usedPage,
-      dataSource: dataSource.slice((usedPage - 1) * usedValue, usedPage * usedValue),
+      dataSource: dataSource.slice(
+        (usedPage - 1) * usedValue,
+        usedPage * usedValue
+      ),
       totalPage
     });
   };
@@ -161,7 +181,9 @@ class TableClient extends React.PureComponent {
               key={`table-head-${kebabCase(name)}-${column.dataIndex}`}
               style={column.style}
               sorting={sorting}
-              onSortChange={() => this.onSortChange(column.sortIndex || column.dataIndex)}
+              onSortChange={() =>
+                this.onSortChange(column.sortIndex || column.dataIndex)
+              }
               sortKey={sortKey}
               sortValue={sortValue}
               sortIndex={column.sortIndex || column.dataIndex}
@@ -177,7 +199,7 @@ class TableClient extends React.PureComponent {
     const { pagination, name, showPagination } = this.props;
     const { page, totalItem, maxItem, totalPage } = this.state;
 
-    if ((typeof pagination === 'boolean' && !pagination) || !showPagination) {
+    if ((typeof pagination === "boolean" && !pagination) || !showPagination) {
       return null;
     }
 
@@ -219,17 +241,17 @@ class TableClient extends React.PureComponent {
     const { dataSource, page, maxItem } = this.state;
 
     const tableWrapperCn = cn({
-      'table-responsive': isResponsive,
-      'w-100': !isResponsive
+      "table-responsive": isResponsive,
+      "w-100": !isResponsive
     });
 
     const tableClassName = cn({
       table: true,
-      'table-vcenter': true,
-      'table-hover': isHoverable,
-      'table-striped': isStripped,
-      'text-nowrap': isNoWrap,
-      'card-table': isCard,
+      "table-vcenter": true,
+      "table-hover": isHoverable,
+      "table-striped": isStripped,
+      "text-nowrap": isNoWrap,
+      "card-table": isCard,
       [tableClass]: !!tableClass
     });
 
@@ -251,7 +273,7 @@ class TableClient extends React.PureComponent {
                   name={`${name}-page-options`}
                   options={[...MAX_ITEM_OPTIONS].concat([
                     {
-                      label: 'Show All',
+                      label: "Show All",
                       value: -1
                     }
                   ])}
@@ -266,7 +288,9 @@ class TableClient extends React.PureComponent {
         )}
         <div className={tableWrapperCn}>
           <table className={tableClassName}>
-            {showHeader && <thead className="table-header">{this.renderDataHeader()}</thead>}
+            {showHeader && (
+              <thead className="table-header">{this.renderDataHeader()}</thead>
+            )}
             <tbody className="table-body">
               <TableDataRow
                 dataSource={dataSource}
@@ -321,18 +345,18 @@ TableClient.defaultProps = {
     currentPage: 1,
     maxItem: 10
   },
-  title: '',
+  title: "",
   pageControl: true,
   showRowNumber: false,
   showHeader: true,
   showPagination: true,
-  initialSearch: '',
-  initialSortKey: '',
+  initialSearch: "",
+  initialSortKey: "",
   initialSortValue: 0,
   onRowFocus: false,
   onRowDoubleClick: false,
-  tableClass: 'text-nowrap',
-  searchKey: 'name',
+  tableClass: "text-nowrap",
+  searchKey: "name",
   isHoverable: true,
   isStripped: true,
   isNoWrap: true,

@@ -9,7 +9,7 @@ const RouteGuard = ({ user, token, path, exact, component: Component }) => {
       exact={exact}
       render={routeProps => {
         if (user && token) {
-          return <Redirect to="/user" />;
+          return <Redirect to="/dashboard" />;
         }
 
         return <Component {...routeProps} />;

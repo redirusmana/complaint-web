@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import cn from 'classnames';
-import kebabCase from 'lodash/kebabCase';
-import Pagination from '../display/Pagination';
-import InputSelect from '../form/InputSelect';
-import InputSearch from '../form/InputSearch';
-import TableDataRow from './TableDataRow';
-import TableHeaderCell from './TableHeaderCell';
-import { MAX_ITEM_OPTIONS } from './constant';
-import LoadingCard from '../display/LoadingCard';
-import { isDevelopment } from '../../configs/general';
-import Alert from '../display/Alert';
+import React from "react";
+import PropTypes from "prop-types";
+import cn from "classnames";
+import kebabCase from "lodash/kebabCase";
+import Pagination from "../Display/Pagination";
+import InputSelect from "../Commons/InputSelect";
+import InputSearch from "../Commons/InputSearch";
+import TableDataRow from "./TableDataRow";
+import TableHeaderCell from "./TableHeaderCell";
+import { MAX_ITEM_OPTIONS } from "./constant";
+import LoadingCard from "../Display/LoadingCard";
+import { isDevelopment } from "../Tools/general";
+import Alert from "../Display/Alert";
 
 const TableServer = ({
   name,
@@ -45,24 +45,24 @@ const TableServer = ({
 }) => {
   const tableClassName = cn({
     table: true,
-    'table-vcenter': true,
-    'table-hover': isHoverable,
-    'table-striped': isStripped,
-    'text-nowrap': isNoWrap,
-    'card-table': isCard,
+    "table-vcenter": true,
+    "table-hover": isHoverable,
+    "table-striped": isStripped,
+    "text-nowrap": isNoWrap,
+    "card-table": isCard,
     [tableClass]: !!tableClass
   });
 
   let isPaginationShow = true;
   if (!showPagination) {
     isPaginationShow = false;
-  } else if (typeof pagination === 'boolean' && !pagination) {
+  } else if (typeof pagination === "boolean" && !pagination) {
     isPaginationShow = false;
   }
 
   const tableWrapperCn = cn({
-    'table-responsive': isResponsive,
-    'w-100': !isResponsive
+    "table-responsive": isResponsive,
+    "w-100": !isResponsive
   });
   return (
     <div className="table-container">
@@ -75,7 +75,13 @@ const TableServer = ({
             </div>
           )}
           <div className="ml-auto form-inline">
-            {search && <InputSearch name={name} initialSearch={initialSearch} onSearchChange={onSearchChange} />}
+            {search && (
+              <InputSearch
+                name={name}
+                initialSearch={initialSearch}
+                onSearchChange={onSearchChange}
+              />
+            )}
             {pageControl && (
               <InputSelect
                 name={`${name}-page-options`}
@@ -89,7 +95,14 @@ const TableServer = ({
           </div>
         </div>
       )}
-      {error && isDevelopment && <Alert type="error" message="Request Error" description={error} showIcon />}
+      {error && isDevelopment && (
+        <Alert
+          type="error"
+          message="Request Error"
+          description={error}
+          showIcon
+        />
+      )}
       <div className={tableWrapperCn}>
         <table className={tableClassName}>
           {showHeader && (
@@ -98,11 +111,18 @@ const TableServer = ({
                 {showRowNumber && <th className="table-number-index">No.</th>}
                 {columns.length > 0 &&
                   columns.map(column => {
-                    const headerSorting = typeof column.sorting !== 'undefined' ? column.sorting : sorting;
+                    const headerSorting =
+                      typeof column.sorting !== "undefined"
+                        ? column.sorting
+                        : sorting;
                     return (
                       <TableHeaderCell
-                        key={`table-head-${kebabCase(name)}-${column.dataIndex}`}
-                        style={column.headerStyle ? column.headerStyle : column.style}
+                        key={`table-head-${kebabCase(name)}-${
+                          column.dataIndex
+                        }`}
+                        style={
+                          column.headerStyle ? column.headerStyle : column.style
+                        }
                         sorting={headerSorting}
                         onSortChange={onSortChange}
                         sortKey={initialSortKey}
@@ -120,7 +140,9 @@ const TableServer = ({
           <tbody className="table-body">
             {isLoading ? (
               <tr>
-                <td colSpan={showRowNumber ? columns.length + 1 : columns.length}>
+                <td
+                  colSpan={showRowNumber ? columns.length + 1 : columns.length}
+                >
                   <LoadingCard />
                 </td>
               </tr>
@@ -195,19 +217,19 @@ TableServer.defaultProps = {
     totalPage: 1,
     onPageChange: () => {}
   },
-  title: '',
+  title: "",
   pageControl: true,
   showHeader: true,
   showRowNumber: false,
-  initialSearch: '',
-  initialSortKey: '',
+  initialSearch: "",
+  initialSortKey: "",
   initialSortValue: 0,
   onRowFocus: false,
   onRowDoubleClick: false,
   onSearchChange: () => {},
   onSortChange: () => {},
   isLoading: false,
-  tableClass: '',
+  tableClass: "",
   isHoverable: true,
   isStripped: true,
   isNoWrap: true,

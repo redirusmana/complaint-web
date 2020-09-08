@@ -1,8 +1,12 @@
-import React from 'react';
-import get from 'lodash/get';
-import Table from '.';
-import { axiosError, AXIOS_CANCEL_MESSAGE, getSortObject } from '../../utils/converter';
-import request from '../../utils/request';
+import React from "react";
+import get from "lodash/get";
+import Table from ".";
+import {
+  axiosError,
+  AXIOS_CANCEL_MESSAGE,
+  getSortObject
+} from "../Tools/converter";
+import request from "../Tools/api";
 
 class TableFull extends React.PureComponent {
   constructor(props) {
@@ -11,7 +15,7 @@ class TableFull extends React.PureComponent {
     this.state = {
       dataSource: [],
       loading: false,
-      error: '',
+      error: "",
       page: props.initialPage,
       perPage: props.initialPerPage,
       totalItems: props.initialTotalItems,
@@ -35,7 +39,7 @@ class TableFull extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    if (typeof this._apiSource !== 'undefined') {
+    if (typeof this._apiSource !== "undefined") {
       this._apiSource.cancel();
     }
   }
@@ -44,7 +48,7 @@ class TableFull extends React.PureComponent {
     this.setState(
       {
         loading: true,
-        error: ''
+        error: ""
       },
       () => {
         this.loadSourceStart();
@@ -54,7 +58,13 @@ class TableFull extends React.PureComponent {
 
   async loadSourceStart() {
     try {
-      const { dataUrl, dataFetch, accessorData, accessorPage, accessorTotal } = this.props;
+      const {
+        dataUrl,
+        dataFetch,
+        accessorData,
+        accessorPage,
+        accessorTotal
+      } = this.props;
       const { page, perPage, sortKey, sortOrder, search } = this.state;
       this._apiSource = request.generateCancelToken();
 
@@ -71,7 +81,7 @@ class TableFull extends React.PureComponent {
         response = await request.get(dataUrl, this._apiSource.token, {
           params: tableParams
         });
-      } else if (typeof dataFetch === 'function') {
+      } else if (typeof dataFetch === "function") {
         response = await dataFetch(this._apiSource.token, tableParams);
       }
 
@@ -155,7 +165,16 @@ class TableFull extends React.PureComponent {
 
   render() {
     const { columns, name, onRowFocus } = this.props;
-    const { dataSource, loading, error, page, perPage, totalItems, sortKey, sortValue } = this.state;
+    const {
+      dataSource,
+      loading,
+      error,
+      page,
+      perPage,
+      totalItems,
+      sortKey,
+      sortValue
+    } = this.state;
 
     const totalPage = Math.ceil(totalItems / perPage);
 
@@ -190,16 +209,16 @@ class TableFull extends React.PureComponent {
 TableFull.defaultProps = {
   columns: [],
   onRowFocus: () => {},
-  accessorData: 'data',
-  accessorPage: 'page',
-  accessorTotal: 'total',
+  accessorData: "data",
+  accessorPage: "page",
+  accessorTotal: "total",
   initialPage: 1,
   initialPerPage: 20,
   initialTotalItems: 0,
-  initialSearch: '',
-  initialSortKey: '',
+  initialSearch: "",
+  initialSortKey: "",
   initialSortValue: 0,
-  initialSortOrder: ''
+  initialSortOrder: ""
 };
 
 export default TableFull;

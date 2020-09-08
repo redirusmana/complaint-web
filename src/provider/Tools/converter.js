@@ -114,3 +114,52 @@ export const axiosError = e => {
 
   return error;
 };
+
+export const arrayToObject = (arr, keyField, extractEmpty = false) =>
+  Array.isArray(arr)
+    ? Object.assign(
+        {},
+        ...arr.map(item => ({
+          [item[keyField]]: extractEmpty ? undefined : item
+        }))
+      )
+    : {};
+
+export const getSortObject = orderValue => {
+  const result = {
+    sortOrder: "",
+    sortValue: 0
+  };
+
+  if (typeof orderValue === "string") {
+    if (orderValue === "asc") {
+      result.sortOrder = "asc";
+      result.sortValue = 1;
+    } else if (orderValue === "desc") {
+      result.sortOrder = "desc";
+      result.sortValue = -1;
+    } else if (orderValue === "1") {
+      result.sortOrder = "asc";
+      result.sortValue = 1;
+    } else if (orderValue === "-1") {
+      result.sortOrder = "desc";
+      result.sortValue = -1;
+    }
+  } else if (typeof orderValue === "number") {
+    if (orderValue > 0) {
+      result.sortOrder = "asc";
+      result.sortValue = 1;
+    } else if (orderValue < 0) {
+      result.sortOrder = "desc";
+      result.sortValue = -1;
+    }
+  }
+
+  return result;
+};
+
+export const getUrlFromHref = url => {
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  return anchor;
+};

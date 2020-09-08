@@ -78,7 +78,7 @@ class PageLogin extends React.PureComponent {
     const { initialValues } = this.state;
     return (
       <React.Fragment>
-        <div className="container-fluid">
+        <div className="container-fluid bg-white">
           <div className="row p-5">
             <div className="col-lg-11">
               <div>

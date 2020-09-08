@@ -44,6 +44,7 @@ const api = {
 };
 
 export const axiosError = e => {
+  console.log(e);
   if (axios.isCancel(e)) {
     return AXIOS_CANCEL_MESSAGE;
   }
