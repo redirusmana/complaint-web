@@ -25,9 +25,21 @@ export const PAGE_OFFICERS_CREATE = `${PAGE_OFFICERS_PREFIX}/create`;
 export const PAGE_OFFICERS_EDIT = `${PAGE_OFFICERS_PREFIX}/edit/:id`;
 
 export const FormPetugasValidation = yup.object().shape({
-  name: yup.string().required("wajib di isi"),
-  email: yup.string().required("wajib di isi"),
-  password: yup.string().required("wajib di isi"),
+  name: yup.string().required("Wajib di isi"),
+  email: yup.string().required("Wajib di isi"),
+  password: yup
+    .string()
+    .required("Wajib di isi")
+    .min(6, "Password terlalu pendek, minimal 6 karakter"),
+  password_confirmation: yup
+    .string()
+    .oneOf([yup.ref("password")], "Password tidak sesuai")
+    .required("Password konfirmasi Wajib diisi"),
   role: yup.string().nullable(),
   avatar: yup.string().nullable()
+  // nik: yup.string().when("role", {
+  //   is: "2",
+  //   then: yup.string().required("Wajib di isi"),
+  //   otherwise: yup.string().nullable()
+  // })
 });

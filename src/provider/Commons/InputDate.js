@@ -88,7 +88,7 @@ InputDate.defaultProps = {
   size: "default",
   disabled: false,
   initialValue: [],
-  className: "form-control p-0",
+  className: "form-control",
   isBlockAfterToday: true,
   allowedValue: [],
   format: "YYYY-MM-DD",

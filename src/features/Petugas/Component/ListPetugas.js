@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 // import get from "lodash/get";
 import api from "../../../provider/Tools/api";
@@ -175,7 +176,7 @@ class ListPetugas extends React.Component {
   render() {
     // console.log(this.state);
 
-    // const { user } = this.props;
+    const { user } = this.props;
     const {
       page,
       perPage,
@@ -241,7 +242,7 @@ class ListPetugas extends React.Component {
         renderRowCell: ({ record }) =>
           record.phone_number ? record.phone_number : " - "
       },
-      {
+      user.role === 0 && {
         label: "Action",
         dataIndex: "action",
         sorting: false,
@@ -273,6 +274,7 @@ class ListPetugas extends React.Component {
         }
       }
     ];
+    console.log(user);
 
     return (
       <React.Fragment>
@@ -290,13 +292,15 @@ class ListPetugas extends React.Component {
           <div className="page-options form-inline">
             <div className="d-flex flex-row my-2 align-items-center">
               <div className="page-options">
-                <Link
-                  to={PAGE_OFFICERS_CREATE}
-                  className="btn btn-md btn-primary mr-1"
-                >
-                  <i className="la la-user-plus" />
-                  Membuat Petugas Baru
-                </Link>
+                {user.role === 0 && (
+                  <Link
+                    to={PAGE_OFFICERS_CREATE}
+                    className="btn btn-md btn-primary"
+                  >
+                    <i className="la la-user-plus" />
+                    Membuat Petugas Baru
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -369,5 +373,8 @@ class ListPetugas extends React.Component {
     );
   }
 }
+const mapStateToProps = store => ({
+  user: store.auth.user
+});
 
-export default ListPetugas;
+export default connect(mapStateToProps)(ListPetugas);

@@ -3,6 +3,7 @@ import React from "react";
 // import { connect } from "react-redux";
 import cn from "classnames";
 import { Link } from "react-router-dom";
+import { Collapse } from "reactstrap";
 import { Formik } from "formik";
 import api from "../../../provider/Tools/api";
 import {
@@ -12,11 +13,14 @@ import {
 import alertFloat from "../../../provider/Display/alertFloat";
 import PageHeader from "../../../provider/Display/PageHeader";
 import LoadingCard from "../../../provider/Display/LoadingCard";
+import InputSelectLong from "../../../provider/Commons/InputSelectLong";
+import InputDate from "../../../provider/Commons/InputDate";
 import {
   apiOfficersGet,
-  apiOfficersStore,
+  // apiOfficersStore,
   apiOfficersUpdate,
-  FormPetugasValidation
+  FormPetugasValidation,
+  PAGE_OFFICERS_HOME
 } from "../action";
 
 class FormPetugas extends React.Component {
@@ -25,20 +29,31 @@ class FormPetugas extends React.Component {
     // const { user } = this.props;
     this.state = {
       loading: false,
+      isOpenCollapse: true,
       fetchingNumberMessage: false,
       initialValues: {
         name: undefined,
         email: undefined,
         password: undefined,
         role: 1
-        // ,avatar: undefined
-      }
+      },
+      genderOption: [
+        { label: "Pria", value: "pria" },
+        { label: "Wanita", value: "wanita" }
+      ]
     };
   }
 
   componentDidMount() {
     this.getToUpdate();
   }
+
+  toggleCollapse = () => {
+    const { isOpenCollapse } = this.state;
+    this.setState({
+      isOpenCollapse: !isOpenCollapse
+    });
+  };
 
   getToUpdate = () => {
     const { match } = this.props;
@@ -64,7 +79,6 @@ class FormPetugas extends React.Component {
                   email: result.name ? result.name : undefined,
                   password: result.name ? result.name : undefined,
                   role: 1
-                  // ,avatar: result.name ? result.name : undefined
                 }
               });
             })
@@ -76,6 +90,7 @@ class FormPetugas extends React.Component {
 
   handleSubmit = async (values, actions) => {
     const { match, history } = this.props;
+    // const { password_confirmation, ...restValue } = values;
 
     try {
       this._requestSource = api.generateCancelToken();
@@ -87,9 +102,15 @@ class FormPetugas extends React.Component {
           values,
           this._requestSource.token
         );
-      } else {
-        response = await apiOfficersStore(values, this._requestSource.token);
       }
+
+      console.log(values);
+      // else {
+      //   response = await apiOfficersStore(
+      //     restValue,
+      //     this._requestSource.token
+      //   );
+      // }
       if (response.status === 200) {
         const Message = match.params.id
           ? "Data Petugas telah berhasil diubah"
@@ -115,21 +136,44 @@ class FormPetugas extends React.Component {
 
   render() {
     // const { match } = this.props;
-    const { initialValues, loading, fetchingNumberMessage } = this.state;
+    const {
+      initialValues,
+      loading,
+      fetchingNumberMessage,
+      isOpenCollapse
+    } = this.state;
 
     if (loading) {
       return <LoadingCard />;
     }
     return (
       <React.Fragment>
-        <PageHeader title="Formulir Petugas" showWrapper />
+        <PageHeader
+          title="Formulir Petugas"
+          subtitle={
+            <div className="breadcrumb pb-0">
+              <div className="breadcrumb-item">
+                <Link to={PAGE_OFFICERS_HOME} className="breadcrumb-item-link">
+                  <i className="la la-home" /> Daftar Petugas
+                </Link>
+              </div>
+              <div className="breadcrumb-item">
+                <i className="la la-edit" />
+                Formulir Petugas
+              </div>
+            </div>
+          }
+          showWrapper
+        />
         <div className="card">
           <div className="card-body">
             <Formik
               initialValues={initialValues}
               validationSchema={FormPetugasValidation}
               onSubmit={this.handleSubmit}
-              render={({
+            >
+              {({
+                setFieldValue,
                 handleChange,
                 handleBlur,
                 handleSubmit,
@@ -194,6 +238,129 @@ class FormPetugas extends React.Component {
                         )}
                       </div>
 
+                      <div className="form-group">
+                        <label className="form-label" htmlFor="label_name">
+                          Password Konfirmasi
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Password Konfirmasi"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="password_confirmation"
+                          value={values.password_confirmation || ""}
+                        />
+                        {errors && errors.password_confirmation && (
+                          <p className="text-danger">
+                            {errors.password_confirmation}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="form-group">
+                        <button
+                          type="button"
+                          className="btn btn-sm btn-primary mr-auto"
+                          onClick={this.toggleCollapse}
+                        >
+                          Show More <i className="la la-caret-down" />
+                        </button>
+                      </div>
+
+                      <Collapse isOpen={isOpenCollapse}>
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="label_name">
+                            Jenis Kelamin
+                          </label>
+                          <InputSelectLong
+                            name="gender"
+                            options={this.state.genderOption}
+                            className="w-100"
+                            placeholder="Jenis Kelamin"
+                            value={values.gender}
+                            onChange={value => setFieldValue("gender", value)}
+                          />
+                          {errors && errors.gender && (
+                            <p className="text-danger">{errors.gender}</p>
+                          )}
+                        </div>
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="label_name">
+                            Alamat
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Alamat"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="address"
+                            value={values.address || ""}
+                          />
+                          {errors && errors.address && (
+                            <p className="text-danger">{errors.address}</p>
+                          )}
+                        </div>
+
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="label_name">
+                            Tempat Lahir
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Tempat Lahir"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="birthday_place"
+                            value={values.birthday_place || ""}
+                          />
+                          {errors && errors.birthday_place && (
+                            <p className="text-danger">
+                              {errors.birthday_place}
+                            </p>
+                          )}
+                        </div>
+
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="label_name">
+                            Tanggal Lahir
+                          </label>
+                          <InputDate
+                            name="birthday_date"
+                            handleChange={value =>
+                              setFieldValue("birthday_date", value)
+                            }
+                            isBlockAfterToday={false}
+                            value={values.birthday_date}
+                          />
+                          {errors && errors.birthday_date && (
+                            <p className="text-danger">
+                              {errors.birthday_date}
+                            </p>
+                          )}
+                        </div>
+
+                        <div className="form-group">
+                          <label className="form-label" htmlFor="label_name">
+                            Telepon
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Telepon"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="phone_number"
+                            value={values.phone_number || ""}
+                          />
+                          {errors && errors.phone_number && (
+                            <p className="text-danger">{errors.phone_number}</p>
+                          )}
+                        </div>
+                      </Collapse>
+
                       <div className="form-group mb-0">
                         <button
                           type="submit"
@@ -220,7 +387,7 @@ class FormPetugas extends React.Component {
                   </div>
                 </form>
               )}
-            />
+            </Formik>
           </div>
         </div>
       </React.Fragment>

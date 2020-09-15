@@ -35,7 +35,7 @@ class PageDashboard extends React.PureComponent {
       location.pathname === "/dashboard" ? "text-primary" : "text-dark";
     return (
       <React.Fragment>
-        <div className="jumbotron text-center mb-0 py-5 bg-primary">
+        <div className="jumbotron jumbotron-fluid text-center mb-0 py-5 bg-primary">
           <h1 className="display-5 text-white">E - Complaint</h1>
           <p className="lead text-white">
             Sistem Pengaduan Keluhan Layanan Masyarakat Berbasis Online
@@ -121,9 +121,18 @@ class PageDashboard extends React.PureComponent {
           <div className="flex text-center font-weight-bold mb-3">
             <Alert
               type="info"
-              message={`Anda telah login sebagai ${this.roleGenFunc({
-                userRole: user.role
-              })}`}
+              closable={false}
+              // message="Anda telah login sebagai"
+              message={
+                <div>
+                  Anda telah Login sebagai{" "}
+                  <b>
+                    {this.roleGenFunc({
+                      userRole: user.role
+                    })}
+                  </b>
+                </div>
+              }
               showIcon={false}
             />
           </div>

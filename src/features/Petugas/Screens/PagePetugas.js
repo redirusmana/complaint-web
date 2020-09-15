@@ -24,9 +24,10 @@ class PagePetugas extends React.PureComponent {
     this.props.setLogout();
   };
   render() {
+    const { user } = this.props;
     return (
       <React.Fragment>
-        <div className="jumbotron text-center mb-0 py-5 bg-primary">
+        <div className="jumbotron jumbotron-fluid text-center mb-0 py-5 bg-primary">
           <h1 className="display-5 text-white">E - Complaint</h1>
           <p className="lead text-white">
             Sistem Pengaduan Keluhan Layanan Masyarakat Berbasis Online
@@ -57,6 +58,7 @@ class PagePetugas extends React.PureComponent {
                       tag={Link}
                       to={"/master-data/petugas"}
                       key={"/master-data/petugas"}
+                      active
                     >
                       Data Petugas
                     </DropdownItem>
@@ -87,16 +89,22 @@ class PagePetugas extends React.PureComponent {
                   className="btn btn-md font-weight-bold btn-link text-dark"
                   tag="button"
                 >
-                  Username
+                  {user.name || " - "}
                 </DropdownToggle>
                 <DropdownMenu right className="dropdown-menu-arrow">
-                  <DropdownItem
+                  {/* <DropdownItem
                     tag="button"
                     onClick={() => this.handleLogout()}
                   >
                     Edit Profile
-                  </DropdownItem>
-                  <DropdownItem tag={Link} to={"/login"} key={"/login"}>
+                  </DropdownItem> */}
+                  <DropdownItem
+                    tag="button"
+                    key="logout"
+                    onClick={() => {
+                      this.handleLogout();
+                    }}
+                  >
                     Logout
                   </DropdownItem>
                 </DropdownMenu>
@@ -109,12 +117,12 @@ class PagePetugas extends React.PureComponent {
           <div className="row">
             <div className="col-lg-24">
               <Switch>
-                <Route path={PAGE_OFFICERS_HOME} component={ListPetugas} />
                 <Route
-                  path={PAGE_OFFICERS_CREATE}
                   exact
-                  component={FormPetugas}
+                  path={PAGE_OFFICERS_HOME}
+                  component={ListPetugas}
                 />
+                <Route path={PAGE_OFFICERS_CREATE} component={FormPetugas} />
                 {/* <Route
                   path={PAGE_OFFICERS_EDIT}
                   exact
@@ -125,10 +133,10 @@ class PagePetugas extends React.PureComponent {
           </div>
         </div>
 
-        {/* <div className="container-fluid bg-primary">
-          <div className="row text-white">
+        {/* <div className="container-fluid bg-white">
+          <div className="row text-dark ">
             <div className="col-lg-24">
-              <p className="text-center m-2">
+              <p className="text-center pt-3">
                 Copyright &copy; 2019. All rights reserved.
               </p>
             </div>
