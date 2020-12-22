@@ -1,6 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Link, Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
 import {
   UncontrolledDropdown,
   DropdownToggle,
@@ -8,31 +8,23 @@ import {
   DropdownItem
 } from "reactstrap";
 import { AUTH_SET_LOGOUT, removeToken } from "../../Auth/action";
-import { PAGE_DASHBOARD_PREFIX } from "../action";
 import api from "../../../provider/Tools/api";
-import Alert from "../../../provider/Display/Alert";
-import NewTenComplaintTable from "../Component/NewTenComplaintTable";
+import {
+  PAGE_PERSONS_HOME,
+  PAGE_PERSONS_EDIT,
+  PAGE_PERSONS_CREATE
+} from "../action";
+import FormMasyarakat from "../Component/FormMasyarakat";
+import ListMasyarakat from "../Component/ListMasyrakat";
 
-class PageDashboard extends React.PureComponent {
+class PageMasyarakat extends React.PureComponent {
   handleLogout = () => {
     api.unsetToken();
     removeToken();
     this.props.setLogout();
   };
-  roleGenFunc = ({ userRole }) => {
-    if (userRole === 1) {
-      return "Petugas";
-    }
-    if (userRole === 2) {
-      return "Masyarakat";
-    }
-    return "Admin";
-  };
   render() {
-    const { location, user } = this.props;
-
-    const dashboardStyleNav =
-      location.pathname === "/dashboard" ? "text-primary" : "text-dark";
+    const { user } = this.props;
     return (
       <React.Fragment>
         <div className="jumbotron jumbotron-fluid text-center mb-0 py-5 bg-primary">
@@ -47,8 +39,8 @@ class PageDashboard extends React.PureComponent {
             <ul className="navbar-nav mr-auto">
               <li className="nav-item ">
                 <Link
-                  to="/dashboard"
-                  className={`btn btn-md font-weight-bold btn-link ${dashboardStyleNav}`}
+                  to="/login"
+                  className="btn btn-md font-weight-bold btn-link text-dark"
                 >
                   Dashboard
                 </Link>
@@ -80,6 +72,7 @@ class PageDashboard extends React.PureComponent {
                       tag={Link}
                       to={"/master-data/masyarakat"}
                       key={"/master-data/masyarakat"}
+                      active
                     >
                       Data Masyarakat
                     </DropdownItem>
@@ -99,9 +92,7 @@ class PageDashboard extends React.PureComponent {
                   {user.name || " - "}
                 </DropdownToggle>
                 <DropdownMenu right className="dropdown-menu-arrow">
-                  {/* <DropdownItem tag={Link} to={"/profle"} key={"/profle"}>
-                    Edit Profile
-                  </DropdownItem> */}
+                  <DropdownItem tag="button">Edit Profile</DropdownItem>
                   <DropdownItem
                     tag="button"
                     key="logout"
@@ -118,88 +109,29 @@ class PageDashboard extends React.PureComponent {
         </nav>
 
         <div className="container mt-5">
-          <div className="flex text-center font-weight-bold mb-3">
-            <Alert
-              type="info"
-              closable={false}
-              message={`Anda telah login sebagai ${this.roleGenFunc({
-                userRole: user.role
-              })}`}
-              showIcon={false}
-            />
-          </div>
-
-          <div className="row">
-            <div className="col-lg-8">
-              <div className="card text-dark bg-white mb-3">
-                <div className="card-body">
-                  <h5 className="card-text text-center font-weight-bold">
-                    Petugas (?)
-                  </h5>
-                  <p className="card-text text-center">Jumlah Petugas</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-8">
-              <div className="card text-dark bg-white mb-3">
-                <div className="card-body">
-                  <h5 className="card-text text-center font-weight-bold">
-                    Pengaduan (?)
-                  </h5>
-                  <p className="card-text text-center">
-                    Jumlah Pengaduan yang diajukan masyarakat
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-8">
-              <div className="card text-dark bg-white mb-3">
-                <div className="card-body">
-                  <h5 className="card-text text-center font-weight-bold">
-                    Masyarakat (?)
-                  </h5>
-                  <p className="card-text text-center">Jumlah Masyarakat</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="card text-white bg-warning mb-3">
-                <div className="card-body">
-                  <p className="card-text text-center">
-                    <b>(?) Pengaduan</b> menunggu konfirmasi
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-12">
-              <div className="card text-white bg-success mb-3">
-                <div className="card-body">
-                  <p className="card-text text-center">
-                    <b>(?) Pengaduan</b> telah Selesai
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="container">
           <div className="row">
             <div className="col-lg-24">
               <Switch>
                 <Route
-                  path={PAGE_DASHBOARD_PREFIX}
-                  component={NewTenComplaintTable}
+                  exact
+                  path={PAGE_PERSONS_HOME}
+                  component={ListMasyarakat}
+                />
+                <Route path={PAGE_PERSONS_CREATE} component={FormMasyarakat} />
+                <Route
+                  path={PAGE_PERSONS_EDIT}
+                  exact
+                  component={FormMasyarakat}
                 />
               </Switch>
             </div>
           </div>
         </div>
 
-        <div className="container-fluid bg-white">
+        {/* <div
+          className="container-fluid bg-white"
+          style={{ bottom: 0, position: "absolute" }}
+        >
           <div className="row text-dark ">
             <div className="col-lg-24">
               <p className="text-center pt-3">
@@ -207,7 +139,7 @@ class PageDashboard extends React.PureComponent {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
       </React.Fragment>
     );
   }
@@ -224,4 +156,4 @@ const mapDispatchToProps = dispatch => ({
     })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PageDashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(PageMasyarakat);

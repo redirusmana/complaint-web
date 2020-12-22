@@ -11,13 +11,13 @@ import {
   arrayToObject,
   getSortObject
 } from "../../../provider/Tools/converter";
-import { PAGE_OFFICERS_CREATE } from "../action";
+import { PAGE_PERSONS_CREATE } from "../action";
 import PageHeader from "../../../provider/Display/PageHeader";
 import FetchResource from "../../../provider/Tools/FetchResource";
 import FilterOptions from "../../../provider/Commons/FilterOptions";
-import { apiOfficersGet, apiOfficersFilter, apiUsersDelete } from "../action";
+import { apiPersonsGet, apiPersonsFilter, apiUsersDelete } from "../action";
 
-class ListPetugas extends React.Component {
+class ListMasyrakat extends React.Component {
   configFilter = [{ type: "select", title: "Jenis Kelamin", key: "gender" }];
 
   constructor(props) {
@@ -46,7 +46,7 @@ class ListPetugas extends React.Component {
     try {
       this._requestSource = api.generateCancelToken();
       const { data } = await api.get(
-        apiOfficersFilter,
+        apiPersonsFilter,
         this._requestSource.token
       );
       this.setState({
@@ -120,18 +120,18 @@ class ListPetugas extends React.Component {
 
   handleRowDetail = record => {
     const { history } = this.props;
-    history.push(`/master-data/petugas/detail/${record.user.id}`);
+    history.push(`/master-data/masyarakat/detail/${record.user.id}`);
   };
 
   handleRowEdit = record => {
     const { history } = this.props;
-    history.push(`/master-data/petugas/edit/${record.user.id}`);
+    history.push(`/master-data/masyarakat/edit/${record.user.id}`);
   };
 
   handleRemoveRecord = record => {
     popConfirm({
-      title: `Are you sure to remove this Officers?`,
-      message: "Officers will deleted permanently",
+      title: `Are you sure to remove this Persons?`,
+      message: "Persons will deleted permanently",
       okText: " Yes",
       cancelText: " No",
       onOkay: async () => {
@@ -144,7 +144,7 @@ class ListPetugas extends React.Component {
           if (status === 200) {
             alertFloat({
               type: "success",
-              content: "Berhasil Menghapus Officers"
+              content: "Berhasil Menghapus Persons"
             });
             this.setState(prevState => ({
               increment: prevState.increment + 1
@@ -184,11 +184,11 @@ class ListPetugas extends React.Component {
       sortValue
     } = this.state;
     const columns = [
-      // {
-      //   label: "NIK",
-      //   dataIndex: "nik",
-      //   renderRowCell: ({ record }) => (record.nik ? record.nik : " - ")
-      // },
+      {
+        label: "NIK",
+        dataIndex: "nik",
+        renderRowCell: ({ record }) => (record.nik ? record.nik : " - ")
+      },
       {
         label: "Nama",
         dataIndex: "name",
@@ -266,11 +266,11 @@ class ListPetugas extends React.Component {
     return (
       <React.Fragment>
         <PageHeader
-          title="Petugas"
+          title="Masyarakat"
           subtitle={
             <div className="breadcrumb pb-0">
               <div className="breadcrumb-item">
-                <i className="la la-home" /> Daftar Petugas
+                <i className="la la-home" /> Daftar Masyarakat
               </div>
             </div>
           }
@@ -281,11 +281,11 @@ class ListPetugas extends React.Component {
               <div className="page-options">
                 {user.role === 0 && (
                   <Link
-                    to={PAGE_OFFICERS_CREATE}
+                    to={PAGE_PERSONS_CREATE}
                     className="btn btn-md btn-primary"
                   >
                     <i className="la la-user-plus" />
-                    Membuat Petugas Baru
+                    Membuat Masyarakat Baru
                   </Link>
                 )}
               </div>
@@ -294,7 +294,7 @@ class ListPetugas extends React.Component {
         </PageHeader>
 
         <FilterOptions
-          id="filter-list-officers"
+          id="filter-list-persons"
           title="Your Request"
           configs={this.configFilter}
           options={filter}
@@ -310,8 +310,8 @@ class ListPetugas extends React.Component {
           defaultOpenCollapse={false}
         />
         <FetchResource
-          key={`table-petugas-list-${increment}`}
-          dataUrl={apiOfficersGet}
+          key={`table-masyarakat-list-${increment}`}
+          dataUrl={apiPersonsGet}
           queryParams={{
             ...queries,
             page,
@@ -329,7 +329,7 @@ class ListPetugas extends React.Component {
               <div className="card mt-2">
                 <div className="card-body p-1">
                   <Table
-                    name="list-petugas"
+                    name="list-masyarakat"
                     columns={columns}
                     dataSource={dataSource.data}
                     pageControl={false}
@@ -364,4 +364,4 @@ const mapStateToProps = store => ({
   user: store.auth.user
 });
 
-export default connect(mapStateToProps)(ListPetugas);
+export default connect(mapStateToProps)(ListMasyrakat);

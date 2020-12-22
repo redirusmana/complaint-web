@@ -19,11 +19,11 @@ import {
   apiUsersGet,
   apiUsersStore,
   apiUsersUpdate,
-  PAGE_OFFICERS_HOME
+  PAGE_PERSONS_HOME
 } from "../action";
 import moment from "moment";
 
-class FormPetugas extends React.Component {
+class FormMasyarakat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,7 +33,7 @@ class FormPetugas extends React.Component {
         name: undefined,
         email: undefined,
         password: undefined,
-        role: 1
+        role: 2
       },
       genderOption: [
         { label: "Pria", value: "pria" },
@@ -73,17 +73,18 @@ class FormPetugas extends React.Component {
                   name: data.name ? data.name : undefined,
                   email: data.email ? data.email : undefined,
                   password: data.password ? data.password : undefined,
-                  gender: data.officer ? data.officer.gender : undefined,
-                  address: data.officer ? data.officer.address : undefined,
-                  birthday_date: data.officer
-                    ? moment(data.officer.birthday_date)
+                  gender: data.person ? data.person.gender : undefined,
+                  address: data.person ? data.person.address : undefined,
+                  birthday_date: data.person
+                    ? moment(data.person.birthday_date)
                     : undefined,
-                  birthday_place: data.officer
-                    ? data.officer.birthday_place
+                  birthday_place: data.person
+                    ? data.person.birthday_place
                     : undefined,
-                  phone_number: data.officer
-                    ? data.officer.phone_number
-                    : undefined
+                  phone_number: data.person
+                    ? data.person.phone_number
+                    : undefined,
+                  nik: data.person ? data.person.nik : undefined
                 }
               });
             })
@@ -102,6 +103,7 @@ class FormPetugas extends React.Component {
       birthday_date,
       birthday_place,
       phone_number,
+      nik,
       ...restValue
     } = values;
     const storeValue = restValue;
@@ -110,7 +112,8 @@ class FormPetugas extends React.Component {
       address,
       birthday_date,
       birthday_place,
-      phone_number
+      phone_number,
+      nik
     };
 
     try {
@@ -129,13 +132,13 @@ class FormPetugas extends React.Component {
 
       if (response.status === 200) {
         const Message = match.params.id
-          ? "Data Petugas telah berhasil diubah"
-          : "Berhasil Petugas baru";
+          ? "Data Masyarakat telah berhasil diubah"
+          : "Berhasil Masyarakat baru";
         alertFloat({
           type: "success",
           content: Message
         });
-        history.replace("/master-data/petugas");
+        history.replace("/master-data/masyarakat");
       }
     } catch (e) {
       const error = axiosError(e);
@@ -158,7 +161,7 @@ class FormPetugas extends React.Component {
       return <LoadingCard />;
     }
 
-    const FormPetugasValidation = yup.object().shape({
+    const FormMasyarakatValidation = yup.object().shape({
       name: yup.string().required("Wajib di isi"),
       email: yup
         .string()
@@ -178,6 +181,11 @@ class FormPetugas extends React.Component {
           .required("Password konfirmasi Wajib diisi"),
       role: yup.string().nullable(),
       avatar: yup.string().nullable(),
+      nik: yup
+        .string()
+        .required("NIK Wajib diisi")
+        .matches(/^[0-9]+$/, "Gunakan Angka")
+        .length(16, "Harus 16 karakter"),
 
       gender: yup.string().required("Wajib di isi"),
       address: yup.string().required("Wajib di isi"),
@@ -192,17 +200,17 @@ class FormPetugas extends React.Component {
     return (
       <React.Fragment>
         <PageHeader
-          title="Formulir Petugas"
+          title="Formulir Masyarakat"
           subtitle={
             <div className="breadcrumb pb-0">
               <div className="breadcrumb-item">
-                <Link to={PAGE_OFFICERS_HOME} className="breadcrumb-item-link">
-                  <i className="la la-home" /> Daftar Petugas
+                <Link to={PAGE_PERSONS_HOME} className="breadcrumb-item-link">
+                  <i className="la la-home" /> Daftar Masyarakat
                 </Link>
               </div>
               <div className="breadcrumb-item">
                 <i className="la la-edit" />
-                Formulir Petugas
+                Formulir Masyarakat
               </div>
             </div>
           }
@@ -212,7 +220,7 @@ class FormPetugas extends React.Component {
           <div className="card-body">
             <Formik
               initialValues={initialValues}
-              validationSchema={FormPetugasValidation}
+              validationSchema={FormMasyarakatValidation}
               onSubmit={this.handleSubmit}
             >
               {({
@@ -242,6 +250,24 @@ class FormPetugas extends React.Component {
                         />
                         {errors && errors.name && (
                           <p className="text-danger">{errors.name}</p>
+                        )}
+                      </div>
+
+                      <div className="form-group">
+                        <label className="form-label" htmlFor="label_name">
+                          NIK
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="NIK"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="nik"
+                          value={values.nik || ""}
+                        />
+                        {errors && errors.nik && (
+                          <p className="text-danger">{errors.nik}</p>
                         )}
                       </div>
 
@@ -432,7 +458,7 @@ class FormPetugas extends React.Component {
                           {isSubmitting ? "Submitting" : "Submit"}
                         </button>
                         <Link
-                          to="/master-data/petugas"
+                          to="/master-data/masyarakat"
                           className="btn pull-right mr-1 btn-danger"
                         >
                           Cancel
@@ -449,4 +475,4 @@ class FormPetugas extends React.Component {
     );
   }
 }
-export default FormPetugas;
+export default FormMasyarakat;

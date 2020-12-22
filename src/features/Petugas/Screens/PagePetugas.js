@@ -11,8 +11,8 @@ import { AUTH_SET_LOGOUT, removeToken } from "../../Auth/action";
 import api from "../../../provider/Tools/api";
 import {
   PAGE_OFFICERS_CREATE,
-  PAGE_OFFICERS_HOME
-  // PAGE_OFFICERS_EDIT
+  PAGE_OFFICERS_HOME,
+  PAGE_OFFICERS_EDIT
 } from "../action";
 import FormPetugas from "../Component/FormPetugas";
 import ListPetugas from "../Component/ListPetugas";
@@ -92,12 +92,7 @@ class PagePetugas extends React.PureComponent {
                   {user.name || " - "}
                 </DropdownToggle>
                 <DropdownMenu right className="dropdown-menu-arrow">
-                  {/* <DropdownItem
-                    tag="button"
-                    onClick={() => this.handleLogout()}
-                  >
-                    Edit Profile
-                  </DropdownItem> */}
+                  <DropdownItem tag="button">Edit Profile</DropdownItem>
                   <DropdownItem
                     tag="button"
                     key="logout"
@@ -123,17 +118,20 @@ class PagePetugas extends React.PureComponent {
                   component={ListPetugas}
                 />
                 <Route path={PAGE_OFFICERS_CREATE} component={FormPetugas} />
-                {/* <Route
+                <Route
                   path={PAGE_OFFICERS_EDIT}
                   exact
                   component={FormPetugas}
-                /> */}
+                />
               </Switch>
             </div>
           </div>
         </div>
 
-        {/* <div className="container-fluid bg-white">
+        {/* <div
+          className="container-fluid bg-white"
+          style={{ bottom: 0, position: "absolute" }}
+        >
           <div className="row text-dark ">
             <div className="col-lg-24">
               <p className="text-center pt-3">
@@ -142,6 +140,11 @@ class PagePetugas extends React.PureComponent {
             </div>
           </div>
         </div> */}
+        <footer className="footer" id="app-footer">
+          <p className="text-center py-3">
+            Copyright © {new Date().getFullYear()}. All rights reserved.
+          </p>
+        </footer>
       </React.Fragment>
     );
   }

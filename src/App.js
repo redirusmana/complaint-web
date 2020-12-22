@@ -6,6 +6,7 @@ import PageLogin from "./features/Auth/Screens/PageLogin";
 import PageRegister from "./features/Auth/Screens/PageRegister";
 import PageDashboard from "./features/Dashboard/Screens/PageDashboard";
 import PagePetugas from "./features/Petugas/Screens/PagePetugas";
+import PageMasyarakat from "./features/Masyarakat/Screens/PageMasyarakat";
 import RoutePrivate from "./features/Auth/Components/RoutePrivate";
 import { getSavedToken, AUTH_SET_LOGIN } from "./features/Auth/action";
 import { axiosError } from "./provider/Tools/converter";
@@ -71,7 +72,10 @@ class App extends React.PureComponent {
           <RoutePrivate path="/dashboard" component={PageDashboard} />
           <RoutePrivate path="/master-data/petugas" component={PagePetugas} />
           {/* <RoutePrivate path="/master-data/pengaduan" component={PagePengaduan} /> */}
-          {/* <RoutePrivate path="/master-data/masyarakat" component={PageMasyarakat} /> */}
+          <RoutePrivate
+            path="/master-data/masyarakat"
+            component={PageMasyarakat}
+          />
           {/* <RoutePrivate path="/profile" component={PageProfile} /> */}
         </Switch>
       </React.Fragment>
