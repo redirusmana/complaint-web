@@ -1,6 +1,7 @@
 import api from "../../provider/Tools/api";
 
 export const apiOfficersGet = "api/complaints";
+export const apiInformationGet = "api/officers/information";
 
 export const apiNewComplaintGet = (data, cancelToken) => {
   const url = apiOfficersGet;

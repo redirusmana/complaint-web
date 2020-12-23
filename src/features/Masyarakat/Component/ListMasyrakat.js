@@ -118,11 +118,6 @@ class ListMasyrakat extends React.Component {
     });
   };
 
-  handleRowDetail = record => {
-    const { history } = this.props;
-    history.push(`/master-data/masyarakat/detail/${record.user.id}`);
-  };
-
   handleRowEdit = record => {
     const { history } = this.props;
     history.push(`/master-data/masyarakat/edit/${record.user.id}`);
@@ -168,8 +163,6 @@ class ListMasyrakat extends React.Component {
   };
 
   render() {
-    // console.log(this.state);
-
     const { user } = this.props;
     const {
       page,

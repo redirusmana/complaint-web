@@ -1,4 +1,5 @@
 import React from "react";
+import get from "lodash/get";
 import Table from "../../../provider/Table/TableServer";
 import { getSortObject } from "../../../provider/Tools/converter";
 import PageHeader from "../../../provider/Display/PageHeader";
@@ -42,9 +43,6 @@ class NewTenComplaintTable extends React.Component {
   };
 
   render() {
-    // console.log(this.state);
-
-    // const { user } = this.props;
     const {
       page,
       perPage,
@@ -58,13 +56,6 @@ class NewTenComplaintTable extends React.Component {
     } = this.state;
     const columns = [
       {
-        label: "Tanggal",
-        dataIndex: "created_at",
-        renderRowCell: ({ record }) => {
-          return record ? record.created_at : " - ";
-        }
-      },
-      {
         label: "NIK",
         dataIndex: "nik",
         renderRowCell: ({ record }) => (record.nik ? record.nik : " - ")
@@ -73,32 +64,60 @@ class NewTenComplaintTable extends React.Component {
         label: "Nama Pengadu",
         dataIndex: "name",
         renderRowCell: ({ record }) => {
-          const { user } = record;
-          return user ? user.name : " - ";
+          const { person } = record;
+          return person.user ? get(person, "user.name") : "-";
         }
       },
       {
-        label: "Judul Pengaduan",
+        label: "Tanggal Pengadu",
+        dataIndex: "created_at",
+        renderRowCell: ({ record }) => {
+          return record ? record.created_at : " - ";
+        }
+      },
+      {
+        label: "Title",
         dataIndex: "title",
         renderRowCell: ({ record }) => {
           return record ? record.title : " - ";
         }
       },
       {
-        label: "Foto",
-        dataIndex: "image",
-        renderRowCell: ({ record }) => (record.image ? record.image : " - ")
+        label: "Complaint",
+        dataIndex: "complaint",
+        style: {
+          whiteSpace: "normal",
+          minWidth: 400,
+          maxWidth: 400
+        },
+        renderRowCell: ({ record }) =>
+          record.complaint ? record.complaint : " - "
       },
-      // {
-      //   label: "Isi Laporan",
-      //   dataIndex: "report",
-      //   renderRowCell: ({ record }) => (record.report ? record.report : " - ")
-      // },
+
       {
         label: "Status",
         dataIndex: "status",
         renderRowCell: ({ record }) => {
-          return record ? record.status : " - ";
+          let badge = null;
+          let badges = null;
+          if (record.status === "pending") {
+            badge = "warning";
+            badges = "Pending";
+          } else if (record.status === "progress") {
+            badge = "primary";
+            badges = "Progress";
+          } else {
+            badge = "success";
+            badges = "Done";
+          }
+          return (
+            <span
+              className={`w-100 badge badge-${badge}`}
+              style={{ fontSize: "12px", fontWeight: "bold" }}
+            >
+              {record.status ? badges : " - "}
+            </span>
+          );
         }
       }
     ];

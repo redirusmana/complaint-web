@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import get from "lodash/get";
 import api from "../../../provider/Tools/api";
 import Table from "../../../provider/Table/TableServer";
 import popConfirm from "../../../provider/Display/popConfirm";
@@ -11,14 +12,18 @@ import {
   arrayToObject,
   getSortObject
 } from "../../../provider/Tools/converter";
-import { PAGE_OFFICERS_CREATE } from "../action";
+import { PAGE_COMPLAINTS_CREATE } from "../action";
 import PageHeader from "../../../provider/Display/PageHeader";
 import FetchResource from "../../../provider/Tools/FetchResource";
 import FilterOptions from "../../../provider/Commons/FilterOptions";
-import { apiOfficersGet, apiOfficersFilter, apiUsersDelete } from "../action";
+import {
+  apiComplaintsGet,
+  apiPersonsFilter,
+  apiComplaintsDelete
+} from "../action";
 
-class ListPetugas extends React.Component {
-  configFilter = [{ type: "select", title: "Jenis Kelamin", key: "gender" }];
+class ListPengaduan extends React.Component {
+  configFilter = [{ type: "select", title: "Status", key: "status" }];
 
   constructor(props) {
     super(props);
@@ -46,7 +51,7 @@ class ListPetugas extends React.Component {
     try {
       this._requestSource = api.generateCancelToken();
       const { data } = await api.get(
-        apiOfficersFilter,
+        apiPersonsFilter,
         this._requestSource.token
       );
       this.setState({
@@ -120,26 +125,26 @@ class ListPetugas extends React.Component {
 
   handleRowEdit = record => {
     const { history } = this.props;
-    history.push(`/master-data/petugas/edit/${record.user.id}`);
+    history.push(`/master-data/pengaduan/edit/${record.id}`);
   };
 
   handleRemoveRecord = record => {
     popConfirm({
-      title: `Are you sure to remove this Officers?`,
-      message: "Officers will deleted permanently",
+      title: `Are you sure to remove this Complaints?`,
+      message: "Complaints will deleted permanently",
       okText: " Yes",
       cancelText: " No",
       onOkay: async () => {
         try {
           this._requestSource = api.generateCancelToken();
-          const { status } = await apiUsersDelete(
-            record.user.id,
+          const { status } = await apiComplaintsDelete(
+            record.id,
             this._requestSource.token
           );
           if (status === 200) {
             alertFloat({
               type: "success",
-              content: "Berhasil Menghapus Officers"
+              content: "Berhasil Menghapus Complaints"
             });
             this.setState(prevState => ({
               increment: prevState.increment + 1
@@ -177,53 +182,70 @@ class ListPetugas extends React.Component {
       sortValue
     } = this.state;
     const columns = [
-      // {
-      //   label: "NIK",
-      //   dataIndex: "nik",
-      //   renderRowCell: ({ record }) => (record.nik ? record.nik : " - ")
-      // },
       {
-        label: "Nama",
+        label: "NIK",
+        dataIndex: "nik",
+        renderRowCell: ({ record }) => (record.nik ? record.nik : " - ")
+      },
+      {
+        label: "Nama Pengadu",
         dataIndex: "name",
         renderRowCell: ({ record }) => {
-          const { user } = record;
-          return user ? user.name : " - ";
+          const { person } = record;
+          return person.user ? get(person, "user.name") : "-";
         }
       },
       {
-        label: "Jenis Kelamin",
-        dataIndex: "gender",
-        renderRowCell: ({ record }) => (record.gender ? record.gender : " - ")
-      },
-      {
-        label: "Alamat",
-        dataIndex: "address",
-        renderRowCell: ({ record }) => (record.address ? record.address : " - ")
-      },
-      {
-        label: "Tempat, Tanggal Lahir",
-        dataIndex: "birthday_place",
-        renderRowCell: ({ record }) => {
-          const { birthday_date, birthday_place } = record;
-          return record ? `${birthday_place}, ${birthday_date}` : " - ";
-        }
-      },
-      {
-        label: "Email",
-        dataIndex: "email",
-        renderRowCell: ({ record }) => {
-          const { user } = record;
-          return user ? user.email : " - ";
-        }
-      },
-      {
-        label: "Telepon",
-        dataIndex: "phone_number",
-
+        label: "Tanggal Pengaduan",
+        dataIndex: "created_at",
         renderRowCell: ({ record }) =>
-          record.phone_number ? record.phone_number : " - "
+          record.created_at ? record.created_at : " - "
       },
-      user.role === 0 && {
+      {
+        label: "Title",
+        dataIndex: "title",
+        renderRowCell: ({ record }) => {
+          return record ? record.title : " - ";
+        }
+      },
+      {
+        label: "Complaint",
+        dataIndex: "complaint",
+        style: {
+          whiteSpace: "normal",
+          minWidth: 400,
+          maxWidth: 400
+        },
+        renderRowCell: ({ record }) =>
+          record.complaint ? record.complaint : " - "
+      },
+      {
+        label: "Status",
+        dataIndex: "status",
+        renderRowCell: ({ record }) => {
+          let badge = null;
+          let badges = null;
+          if (record.status === "pending") {
+            badge = "warning";
+            badges = "Pending";
+          } else if (record.status === "progress") {
+            badge = "primary";
+            badges = "Progress";
+          } else {
+            badge = "success";
+            badges = "Done";
+          }
+          return (
+            <span
+              className={`w-100 badge badge-${badge}`}
+              style={{ fontSize: "12px", fontWeight: "bold" }}
+            >
+              {record.status ? badges : " - "}
+            </span>
+          );
+        }
+      },
+      {
         label: "Action",
         dataIndex: "action",
         sorting: false,
@@ -259,11 +281,11 @@ class ListPetugas extends React.Component {
     return (
       <React.Fragment>
         <PageHeader
-          title="Petugas"
+          title="Pengaduan"
           subtitle={
             <div className="breadcrumb pb-0">
               <div className="breadcrumb-item">
-                <i className="la la-home" /> Daftar Petugas
+                <i className="la la-home" /> Daftar Pengaduan
               </div>
             </div>
           }
@@ -274,11 +296,11 @@ class ListPetugas extends React.Component {
               <div className="page-options">
                 {user.role === 0 && (
                   <Link
-                    to={PAGE_OFFICERS_CREATE}
+                    to={PAGE_COMPLAINTS_CREATE}
                     className="btn btn-md btn-primary"
                   >
                     <i className="la la-user-plus" />
-                    Membuat Petugas Baru
+                    Membuat Pengaduan Baru
                   </Link>
                 )}
               </div>
@@ -287,7 +309,7 @@ class ListPetugas extends React.Component {
         </PageHeader>
 
         <FilterOptions
-          id="filter-list-officers"
+          id="filter-list-Complaints"
           title="Your Request"
           configs={this.configFilter}
           options={filter}
@@ -295,7 +317,7 @@ class ListPetugas extends React.Component {
           onFilterChange={this.handleFilterChange}
           headerWrapper={({ children }) => (
             <div className="d-flex flex-row align-items-center mb-2">
-              {/* <h5 className="mb-0">Filter Petugas</h5> */}
+              {/* <h5 className="mb-0">Filter Pengaduan</h5> */}
               <div className="ml-auto">{children}</div>
             </div>
           )}
@@ -303,8 +325,8 @@ class ListPetugas extends React.Component {
           defaultOpenCollapse={false}
         />
         <FetchResource
-          key={`table-petugas-list-${increment}`}
-          dataUrl={apiOfficersGet}
+          key={`table-pengaduan-list-${increment}`}
+          dataUrl={apiComplaintsGet}
           queryParams={{
             ...queries,
             page,
@@ -322,7 +344,7 @@ class ListPetugas extends React.Component {
               <div className="card mt-2">
                 <div className="card-body p-1">
                   <Table
-                    name="list-petugas"
+                    name="list-pengaduan"
                     columns={columns}
                     dataSource={dataSource.data}
                     pageControl={false}
@@ -357,4 +379,4 @@ const mapStateToProps = store => ({
   user: store.auth.user
 });
 
-export default connect(mapStateToProps)(ListPetugas);
+export default connect(mapStateToProps)(ListPengaduan);

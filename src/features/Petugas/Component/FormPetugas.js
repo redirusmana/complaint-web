@@ -66,7 +66,6 @@ class FormPetugas extends React.Component {
             .get(`${apiUsersGet}/${match.params.id}`, this._requestSource.token)
             .then(response => {
               const { data } = response.data;
-              console.log(data);
               this.setState({
                 loading: false,
                 initialValues: {

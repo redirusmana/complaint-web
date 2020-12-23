@@ -12,8 +12,16 @@ import { PAGE_DASHBOARD_PREFIX } from "../action";
 import api from "../../../provider/Tools/api";
 import Alert from "../../../provider/Display/Alert";
 import NewTenComplaintTable from "../Component/NewTenComplaintTable";
+import { apiInformationGet } from "../action";
 
 class PageDashboard extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dataInformation: []
+    };
+  }
   handleLogout = () => {
     api.unsetToken();
     removeToken();
@@ -28,11 +36,38 @@ class PageDashboard extends React.PureComponent {
     }
     return "Admin";
   };
+
+  componentDidMount() {
+    this.getInformation();
+  }
+
+  getInformation = async () => {
+    this._requestSource = api.generateCancelToken();
+    api
+      .get(apiInformationGet, this._requestSource.token)
+      .then(response => {
+        const { data } = response.data;
+        this.setState({
+          dataInformation: data
+        });
+      })
+      .catch(error => error);
+  };
+
   render() {
     const { location, user } = this.props;
-
+    const { dataInformation } = this.state;
+    const {
+      complaint,
+      done,
+      progress,
+      officer,
+      pending,
+      person
+    } = dataInformation;
     const dashboardStyleNav =
       location.pathname === "/dashboard" ? "text-primary" : "text-dark";
+
     return (
       <React.Fragment>
         <div className="jumbotron jumbotron-fluid text-center mb-0 py-5 bg-primary">
@@ -134,7 +169,7 @@ class PageDashboard extends React.PureComponent {
               <div className="card text-dark bg-white mb-3">
                 <div className="card-body">
                   <h5 className="card-text text-center font-weight-bold">
-                    Petugas (?)
+                    Petugas {officer}
                   </h5>
                   <p className="card-text text-center">Jumlah Petugas</p>
                 </div>
@@ -144,7 +179,7 @@ class PageDashboard extends React.PureComponent {
               <div className="card text-dark bg-white mb-3">
                 <div className="card-body">
                   <h5 className="card-text text-center font-weight-bold">
-                    Pengaduan (?)
+                    Pengaduan {complaint}
                   </h5>
                   <p className="card-text text-center">
                     Jumlah Pengaduan yang diajukan masyarakat
@@ -156,7 +191,7 @@ class PageDashboard extends React.PureComponent {
               <div className="card text-dark bg-white mb-3">
                 <div className="card-body">
                   <h5 className="card-text text-center font-weight-bold">
-                    Masyarakat (?)
+                    Masyarakat {person}
                   </h5>
                   <p className="card-text text-center">Jumlah Masyarakat</p>
                 </div>
@@ -165,24 +200,40 @@ class PageDashboard extends React.PureComponent {
           </div>
 
           <div className="row">
-            <div className="col-lg-12">
+            <div className="col-lg-3" />
+
+            <div className="col-lg-6">
+              {/* <div className="col-lg-8"> */}
               <div className="card text-white bg-warning mb-3">
                 <div className="card-body">
                   <p className="card-text text-center">
-                    <b>(?) Pengaduan</b> menunggu konfirmasi
+                    <b>{pending} Pengaduan</b> menunggu konfirmasi
                   </p>
                 </div>
               </div>
             </div>
-            <div className="col-lg-12">
+            <div className="col-lg-6">
+              {/* <div className="col-lg-8"> */}
+              <div className="card text-white bg-primary mb-3">
+                <div className="card-body">
+                  <p className="card-text text-center">
+                    <b>{progress} Pengaduan</b> sedang diproses
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-6">
+              {/* <div className="col-lg-8"> */}
               <div className="card text-white bg-success mb-3">
                 <div className="card-body">
                   <p className="card-text text-center">
-                    <b>(?) Pengaduan</b> telah Selesai
+                    <b>{done} Pengaduan</b> telah Selesai
                   </p>
                 </div>
               </div>
             </div>
+
+            <div className="col-lg-3" />
           </div>
         </div>
 
