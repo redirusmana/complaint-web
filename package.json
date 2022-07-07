@@ -14,7 +14,7 @@
     "formik": "^2.1.4",
     "fuse.js": "^5.1.0",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "node-sass": "^4.13.1",
     "numeral": "^2.0.6",
     "prop-types": "^15.7.2",
